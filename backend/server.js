@@ -35,6 +35,30 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/hsfin', {
 .then(() => console.log('MongoDB Connected'))
 .catch(err => console.error('MongoDB Connection Error:', err));
 
+// Root route
+app.get('/', (req, res) => {
+  res.json({
+    message: 'HSfin Backend API',
+    version: '1.0.0',
+    status: 'running',
+    endpoints: {
+      health: '/api/health',
+      auth: '/api/auth',
+      dashboard: '/api/dashboard',
+      debit: '/api/debit',
+      loan: '/api/loan',
+      creditcard: '/api/creditcard',
+      creditPerson: '/api/credit-person',
+      debitPerson: '/api/debit-person',
+      notes: '/api/notes',
+      rules: '/api/rules',
+      stockMarket: '/api/stock-market',
+      balance: '/api/balance'
+    },
+    documentation: 'This is the backend API for HSfin Finance Management'
+  });
+});
+
 // Routes
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/dashboard', require('./routes/dashboard'));
@@ -50,7 +74,13 @@ app.use('/api/balance', require('./routes/balance'));
 
 // Health check
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'OK', message: 'HSfin Backend API is running' });
+  const mongoStatus = mongoose.connection.readyState === 1 ? 'connected' : 'disconnected';
+  res.json({ 
+    status: 'OK', 
+    message: 'HSfin Backend API is running',
+    mongodb: mongoStatus,
+    timestamp: new Date().toISOString()
+  });
 });
 
 const PORT = process.env.PORT || 5000;
