@@ -105,7 +105,7 @@ const Dashboard = () => {
         </div>
         <div className="bg-gradient-to-br from-white to-orange-50 p-3 md:p-5 rounded-lg md:rounded-xl shadow-md md:shadow-lg border-l-4 border-orange-500 hover:shadow-lg md:hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-gray-600 text-xs md:text-sm font-semibold uppercase tracking-wide">Credit Card Balance</h3>
+            <h3 className="text-gray-600 text-xs md:text-sm font-semibold uppercase tracking-wide">Total Outstanding</h3>
             <span className="text-lg md:text-2xl">💳</span>
           </div>
           <p className="text-2xl md:text-3xl font-bold text-orange-600">
@@ -137,7 +137,7 @@ const Dashboard = () => {
         <div className="bg-white p-3 md:p-6 rounded-lg md:rounded-xl shadow-md md:shadow-lg mb-3 md:mb-6">
           <div className="flex items-center mb-2 md:mb-4">
             <span className="text-lg md:text-2xl mr-2 md:mr-3">🏦</span>
-            <h2 className="text-sm md:text-2xl font-bold" style={{ color: '#003049' }}>Loan Outstanding Summary</h2>
+            <h2 className="text-sm md:text-2xl font-bold" style={{ color: '#003049' }}>Loan Outstanding Summary - {}</h2>
           </div>
           <div className="overflow-x-auto">
             <table className="min-w-full">
@@ -173,7 +173,7 @@ const Dashboard = () => {
                 <tr className="bg-gradient-to-r from-gray-50 to-gray-100">
                   <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-semibold text-gray-700 uppercase tracking-wider">Card Name</th>
                   <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-semibold text-gray-700 uppercase tracking-wider">Limit</th>
-                  <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-semibold text-gray-700 uppercase tracking-wider">Current Balance</th>
+                  <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-semibold text-gray-700 uppercase tracking-wider">totalOutstanding</th>
                   <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-semibold text-gray-700 uppercase tracking-wider">Available Credit</th>
                 </tr>
               </thead>
