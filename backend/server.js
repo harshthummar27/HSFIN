@@ -1,7 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '.env') });
 
 const app = express();
 
@@ -28,12 +29,26 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/hsfin', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+const MONGODB_URI = process.env.MONGODB_URI;
+
+if (!process.env.MONGODB_URI) {
+  console.warn('⚠️  WARNING: MONGODB_URI environment variable not set. Using default localhost connection.');
+  console.warn('   For production, set MONGODB_URI in your environment variables.');
+}
+
+mongoose.connect(MONGODB_URI)
+.then(() => {
+  console.log('✅ MongoDB Connected successfully');
+  console.log(`   Database: ${mongoose.connection.name}`);
+  console.log(`   Host: ${mongoose.connection.host}`);
 })
-.then(() => console.log('MongoDB Connected'))
-.catch(err => console.error('MongoDB Connection Error:', err));
+.catch(err => {
+  console.error('❌ MongoDB Connection Error:', err.message);
+  console.error('   Please check your MONGODB_URI environment variable.');
+  console.error('   If using MongoDB Atlas, ensure your IP is whitelisted.');
+  // Don't exit in production - let the app continue running
+  // process.exit(1);
+});
 
 // Root route
 app.get('/', (req, res) => {

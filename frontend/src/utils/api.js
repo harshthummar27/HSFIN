@@ -1,17 +1,32 @@
 import axios from 'axios';
 
+// Use localhost for development, production URL for production
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
 
 const api = axios.create({
   baseURL: API_URL,
 });
 
+// Helper function to clean token
+const cleanToken = (token) => {
+  if (!token) return null;
+  // Remove all whitespace, quotes, and any invisible characters
+  return token
+    .trim()
+    .replace(/^["']|["']$/g, '') // Remove quotes
+    .replace(/\s/g, '') // Remove all whitespace
+    .replace(/[\u200B-\u200D\uFEFF]/g, ''); // Remove zero-width spaces
+};
+
 // Add token to requests
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+      const cleanedToken = cleanToken(token);
+      if (cleanedToken) {
+        config.headers.Authorization = `Bearer ${cleanedToken}`;
+      }
     }
     return config;
   },

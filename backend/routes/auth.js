@@ -4,8 +4,8 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 // Fixed credentials (in production, these should be in environment variables)
-const FIXED_EMAIL = process.env.EMAIL || 'harsh.hsfin@self.com';
-const FIXED_PASSWORD = process.env.PASSWORD || 'adminhsfin8412';
+const FIXED_EMAIL = process.env.EMAIL;
+const FIXED_PASSWORD = process.env.PASSWORD;
 
 // Login endpoint
 router.post('/login', async (req, res) => {
@@ -17,8 +17,9 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
-    // Generate JWT token with consistent JWT_SECRET
+    // Generate JWT token
     const JWT_SECRET = process.env.JWT_SECRET || 'your_super_secret_jwt_key';
+    
     const token = jwt.sign(
       { email: FIXED_EMAIL },
       JWT_SECRET,

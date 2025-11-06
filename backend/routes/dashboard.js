@@ -9,8 +9,14 @@ const CreditCard = require('../models/CreditCard');
 const StockMarket = require('../models/StockMarket');
 const Balance = require('../models/Balance');
 
+// Test route to verify dashboard router is working
+router.get('/test', (req, res) => {
+  res.json({ message: 'Dashboard router is working', timestamp: new Date().toISOString() });
+});
+
 // Get dashboard summary
 router.get('/summary', auth, async (req, res) => {
+  console.log('Dashboard summary route hit');
   try {
     // Calculate total debit (Daily Debit)
     const totalDebit = await Debit.aggregate([
@@ -116,6 +122,12 @@ router.get('/summary', auth, async (req, res) => {
       balanceTotal: balanceTotal || 0
     });
   } catch (error) {
+    console.error('Dashboard summary error:', error);
+    console.error('Error details:', {
+      message: error.message,
+      stack: error.stack,
+      name: error.name
+    });
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 });
