@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import api from '../utils/api';
 import { toast } from 'react-toastify';
 
-const DebitPerson = ({}) => {
+const DebitPerson = () => {
   const [entries, setEntries] = useState([]);
   const [formData, setFormData] = useState({
     date: new Date().toISOString().split('T')[0],
