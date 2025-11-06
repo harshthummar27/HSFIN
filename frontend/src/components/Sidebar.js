@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import logo from '../assets/HSFIN.png';
 
 const Sidebar = () => {
   const location = useLocation();
@@ -26,20 +27,10 @@ const Sidebar = () => {
         <div className="px-4 py-5 border-b border-gray-200 bg-gradient-to-br from-white to-gray-50">
           <div className="flex items-center justify-center">
             <img 
-              src="/HSFIN.png" 
+              src={logo} 
               alt="HSFIN Logo" 
               className="h-12 md:h-14 w-auto object-contain transition-transform duration-300 hover:scale-105"
               style={{ maxHeight: '56px' }}
-              onError={(e) => {
-                e.target.style.display = 'none';
-                if (!e.target.nextSibling) {
-                  const fallback = document.createElement('h1');
-                  fallback.className = 'text-xl font-bold';
-                  fallback.style.color = '#003049';
-                  fallback.textContent = 'HSfin';
-                  e.target.parentElement.appendChild(fallback);
-                }
-              }}
             />
           </div>
         </div>

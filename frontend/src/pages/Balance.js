@@ -111,36 +111,51 @@ const Balance = () => {
   const totalBalance = currentCashBalance + currentAccountBalance;
 
   return (
-    <div className="p-2 md:p-4">
+    <div className="p-4 md:p-6" style={{ backgroundColor: '#f8fafc', minHeight: '100vh' }}>
+      {/* Page Header */}
+      <div className="mb-6">
+        <h1 className="text-2xl md:text-3xl font-bold" style={{ color: '#003049' }}>Balance Management</h1>
+        <p className="text-gray-600 mt-1">Track your cash and account balances</p>
+      </div>
+
       {/* Total Balance Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 mb-4 md:mb-6">
-        <div className="bg-white p-3 md:p-4 rounded-lg shadow-md border-l-4 border-blue-500 hover:shadow-lg transition-shadow">
-          <h3 className="text-gray-600 text-xs md:text-sm font-medium mb-1">Cash Balance</h3>
-          <p className="text-2xl md:text-3xl font-bold text-blue-600">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-6">
+        <div className="bg-gradient-to-br from-white to-blue-50 p-5 rounded-xl shadow-lg border-l-4 border-blue-500 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="text-gray-600 text-sm font-semibold uppercase tracking-wide">Cash Balance</h3>
+            <span className="text-2xl">💵</span>
+          </div>
+          <p className="text-3xl md:text-4xl font-bold text-blue-600 mb-2">
             ₹{currentCashBalance.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
           </p>
-          <div className="mt-2 text-xs text-gray-500">
-            <p>Initial: ₹{initialCashBalance.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+          <div className="mt-2 text-sm text-gray-600 space-y-1">
+            <p>Initial: <span className="font-semibold">₹{initialCashBalance.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span></p>
             <p className={totalCashTransactions >= 0 ? 'text-green-600' : 'text-red-600'}>
-              Transactions: {(totalCashTransactions >= 0 ? '+' : '')}₹{totalCashTransactions.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              Transactions: <span className="font-semibold">{(totalCashTransactions >= 0 ? '+' : '')}₹{totalCashTransactions.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
             </p>
           </div>
         </div>
-        <div className="bg-white p-3 md:p-4 rounded-lg shadow-md border-l-4 border-green-500 hover:shadow-lg transition-shadow">
-          <h3 className="text-gray-600 text-xs md:text-sm font-medium mb-1">Account Balance</h3>
-          <p className="text-2xl md:text-3xl font-bold text-green-600">
+        <div className="bg-gradient-to-br from-white to-green-50 p-5 rounded-xl shadow-lg border-l-4 border-green-500 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="text-gray-600 text-sm font-semibold uppercase tracking-wide">Account Balance</h3>
+            <span className="text-2xl">🏦</span>
+          </div>
+          <p className="text-3xl md:text-4xl font-bold text-green-600 mb-2">
             ₹{currentAccountBalance.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
           </p>
-          <div className="mt-2 text-xs text-gray-500">
-            <p>Initial: ₹{initialAccountBalance.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+          <div className="mt-2 text-sm text-gray-600 space-y-1">
+            <p>Initial: <span className="font-semibold">₹{initialAccountBalance.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span></p>
             <p className={totalAccountTransactions >= 0 ? 'text-green-600' : 'text-red-600'}>
-              Transactions: {(totalAccountTransactions >= 0 ? '+' : '')}₹{totalAccountTransactions.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              Transactions: <span className="font-semibold">{(totalAccountTransactions >= 0 ? '+' : '')}₹{totalAccountTransactions.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
             </p>
           </div>
         </div>
-        <div className="bg-white p-3 md:p-4 rounded-lg shadow-md border-l-4 border-purple-500 hover:shadow-lg transition-shadow">
-          <h3 className="text-gray-600 text-xs md:text-sm font-medium mb-1">Total Balance</h3>
-          <p className="text-2xl md:text-3xl font-bold text-purple-600">
+        <div className="bg-gradient-to-br from-white to-purple-50 p-5 rounded-xl shadow-lg border-l-4 border-purple-500 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="text-gray-600 text-sm font-semibold uppercase tracking-wide">Total Balance</h3>
+            <span className="text-2xl">💰</span>
+          </div>
+          <p className="text-3xl md:text-4xl font-bold text-purple-600">
             ₹{totalBalance.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
           </p>
         </div>

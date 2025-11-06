@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import logo from '../assets/HSFIN.png';
 
 const TopNavbar = () => {
   const navigate = useNavigate();
@@ -65,7 +66,7 @@ const TopNavbar = () => {
             {/* Logo - Desktop Only */}
             <div className="hidden md:flex items-center space-x-3">
               <img 
-                src="/HSFIN.png" 
+                src={logo} 
                 alt="HSFIN Logo" 
                 className="h-8 md:h-9 w-auto object-contain"
                 style={{ maxHeight: '36px' }}
@@ -75,7 +76,7 @@ const TopNavbar = () => {
             {/* Mobile Logo */}
             <div className="md:hidden flex items-center space-x-2">
               <img 
-                src="/HSFIN.png" 
+                src={logo} 
                 alt="HSFIN Logo" 
                 className="h-7 w-auto object-contain"
                 style={{ maxHeight: '28px' }}
@@ -116,7 +117,7 @@ const TopNavbar = () => {
               <div className="flex items-center justify-between">
                 <div className="flex items-center justify-center flex-1">
                   <img 
-                    src="/HSFIN.png" 
+                    src={logo} 
                     alt="HSFIN Logo" 
                     className="h-12 w-auto object-contain"
                     style={{ maxHeight: '48px' }}

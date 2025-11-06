@@ -55,11 +55,19 @@ const Rules = () => {
   };
 
   return (
-    <div className="p-4 md:p-8">
+    <div className="p-4 md:p-6" style={{ backgroundColor: '#f8fafc', minHeight: '100vh' }}>
+      {/* Page Header */}
+      <div className="mb-6">
+        <h1 className="text-2xl md:text-3xl font-bold" style={{ color: '#003049' }}>Rules</h1>
+        <p className="text-gray-600 mt-1">Manage your financial rules and guidelines</p>
+      </div>
 
       {/* Form Section */}
-      <div className="bg-white p-6 rounded-lg shadow-md mb-8">
-        <h2 className="text-xl font-semibold text-gray-700 mb-4">Add New Rule</h2>
+      <div className="bg-white p-5 md:p-6 rounded-xl shadow-lg mb-6">
+        <div className="flex items-center mb-4">
+          <span className="text-2xl mr-3">📋</span>
+          <h2 className="text-xl md:text-2xl font-bold text-gray-700">Add New Rule</h2>
+        </div>
         <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Date</label>
@@ -98,27 +106,30 @@ const Rules = () => {
       </div>
 
       {/* Table Section */}
-      <div className="bg-white rounded-lg shadow-md overflow-hidden">
+      <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+        <div className="p-4 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100">
+          <h2 className="text-lg font-bold text-gray-700">All Rules</h2>
+        </div>
         <div className="overflow-x-auto">
           <table className="min-w-full">
-            <thead className="bg-gray-100">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Date</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Note</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase">Actions</th>
+            <thead>
+              <tr className="bg-gradient-to-r from-gray-50 to-gray-100">
+                <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">Date</th>
+                <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">Note</th>
+                <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
               {rules.map((rule) => (
-                <tr key={rule._id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                <tr key={rule._id} className="hover:bg-gray-50 transition-colors">
+                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">
                     {new Date(rule.date).toLocaleDateString()}
                   </td>
-                  <td className="px-6 py-4 text-sm text-gray-900">{rule.note}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm">
+                  <td className="px-4 py-3 text-sm text-gray-900">{rule.note}</td>
+                  <td className="px-4 py-3 whitespace-nowrap text-sm">
                     <button
                       onClick={() => handleDelete(rule._id)}
-                      className="text-red-600 hover:text-red-800 font-medium"
+                      className="text-red-600 hover:text-red-800 font-semibold transition-colors"
                     >
                       Delete
                     </button>
@@ -127,7 +138,7 @@ const Rules = () => {
               ))}
               {rules.length === 0 && (
                 <tr>
-                  <td colSpan="3" className="px-6 py-4 text-center text-gray-500">
+                  <td colSpan="3" className="px-4 py-8 text-center text-gray-500 text-sm">
                     No rules found
                   </td>
                 </tr>

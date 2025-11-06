@@ -101,17 +101,26 @@ const StockMarket = () => {
   const totalFund = initialBalance + totalProfitLoss;
 
   return (
-    <div className="p-2 md:p-4">
+    <div className="p-4 md:p-6" style={{ backgroundColor: '#f8fafc', minHeight: '100vh' }}>
+      {/* Page Header */}
+      <div className="mb-6">
+        <h1 className="text-2xl md:text-3xl font-bold" style={{ color: '#003049' }}>Stock Market</h1>
+        <p className="text-gray-600 mt-1">Track your stock market investments and profits</p>
+      </div>
+
       {/* Total Fund Card */}
-      <div className="bg-white p-3 md:p-4 rounded-lg shadow-md mb-4 md:mb-6 border-l-4 border-blue-500 hover:shadow-lg transition-shadow">
-        <h3 className="text-gray-600 text-xs md:text-sm font-medium mb-1">Total Fund</h3>
-        <p className={`text-2xl md:text-3xl font-bold ${totalFund >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+      <div className={`bg-gradient-to-br from-white ${totalFund >= 0 ? 'to-green-50' : 'to-red-50'} p-5 rounded-xl shadow-lg mb-6 border-l-4 ${totalFund >= 0 ? 'border-green-500' : 'border-red-500'} hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1`}>
+        <div className="flex items-center justify-between mb-2">
+          <h3 className="text-gray-600 text-sm font-semibold uppercase tracking-wide">Total Fund</h3>
+          <span className="text-2xl">📈</span>
+        </div>
+        <p className={`text-3xl md:text-4xl font-bold mb-2 ${totalFund >= 0 ? 'text-green-600' : 'text-red-600'}`}>
           ₹{totalFund.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
         </p>
-        <div className="mt-2 text-xs md:text-sm text-gray-500">
-          <p>Initial Balance: ₹{initialBalance.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+        <div className="mt-2 text-sm text-gray-600 space-y-1">
+          <p>Initial Balance: <span className="font-semibold">₹{initialBalance.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span></p>
           <p>Total P/L: 
-            <span className={totalProfitLoss >= 0 ? 'text-green-600' : 'text-red-600'}>
+            <span className={`font-semibold ${totalProfitLoss >= 0 ? 'text-green-600' : 'text-red-600'}`}>
               {' '}₹{totalProfitLoss.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </span>
           </p>
