@@ -4,7 +4,7 @@ import axios from 'axios';
 const AuthContext = createContext();
 
 // Use localhost for development, production URL for production
-const API_URL = process.env.REACT_APP_API_URL || 'https://hsfin-1.onrender.com/api';
+const API_URL = process.env.REACT_APP_API_URL || 'https://hsfin-3-0.onrender.com/api';
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
