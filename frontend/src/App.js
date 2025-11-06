@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { ToastContainer } from 'react-toastify';
@@ -17,10 +17,22 @@ import StockMarket from './pages/StockMarket';
 import Balance from './pages/Balance';
 import PrivateRoute from './components/PrivateRoute';
 
+// Component to handle scroll restoration
+function ScrollToTop() {
+  useEffect(() => {
+    // Prevent automatic scroll restoration on page refresh
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+  }, []);
+  return null;
+}
+
 function App() {
   return (
     <AuthProvider>
       <Router>
+        <ScrollToTop />
         <div className="App">
           <Routes>
             <Route path="/" element={<Home />} />

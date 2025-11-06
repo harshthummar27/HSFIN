@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import LoginModal from '../components/LoginModal';
+import logo from '../assets/HSFIN.png';
 
 const Home = () => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -59,21 +60,21 @@ const Home = () => {
 
       {/* Navbar */}
       <nav className="bg-white shadow-lg relative z-10 backdrop-blur-sm bg-opacity-95">
-        <div className="container mx-auto px-4 md:px-6 py-3 md:py-4 flex justify-between items-center">
-          <div className="flex items-center space-x-2 md:space-x-3">
+        <div className="container mx-auto px-3 md:px-4 py-2 flex justify-between items-center">
+          <div className="flex items-center space-x-1.5 md:space-x-2">
             <img 
-              src="/HSFIN.png" 
+              src={logo} 
               alt="HSFIN Logo" 
-              className="h-10 md:h-12 w-auto object-contain transition-transform duration-300 hover:scale-110 cursor-pointer"
-              style={{ maxHeight: '48px' }}
+              className="h-8 md:h-10 w-auto object-contain transition-transform duration-300 hover:scale-110 cursor-pointer"
+              style={{ maxHeight: '40px' }}
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             />
-            <div className="hidden md:block h-8 w-px bg-gray-300 mx-2"></div>
-            <span className="hidden md:block text-lg font-semibold" style={{ color: '#003049' }}>HSfin</span>
+            <div className="hidden md:block h-6 w-px bg-gray-300 mx-1"></div>
+            <span className="hidden md:block text-base font-semibold" style={{ color: '#003049' }}>@Harsh.Patel</span>
           </div>
           <button
             onClick={() => setIsLoginModalOpen(true)}
-            className="text-white px-4 md:px-6 py-2 md:py-2.5 rounded-lg transition-all hover:scale-105 shadow-md text-sm md:text-base font-semibold relative overflow-hidden group"
+            className="text-white px-3 md:px-4 py-1.5 rounded-lg transition-all hover:scale-105 shadow-md text-sm font-semibold relative overflow-hidden group"
             style={{ backgroundColor: '#669bbc' }}
             onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#5588aa'}
             onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#669bbc'}
@@ -85,54 +86,155 @@ const Home = () => {
       </nav>
 
       {/* Hero Section */}
-      <div className="container mx-auto px-4 md:px-6 py-8 md:py-20 relative z-10">
-        <div className="text-center max-w-4xl mx-auto">
-          {/* Main Heading with Animation */}
-          <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-3 md:mb-6 bg-gradient-to-r" style={{ 
-              backgroundImage: 'linear-gradient(to right, #003049, #669bbc)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text'
-            }}>
-              Welcome to HSfin
-            </h1>
-          </div>
+      <div className="container mx-auto px-4 md:px-6 py-8 md:py-16 relative z-10">
+        <div className="max-w-6xl mx-auto">
+          {/* Main Content - Two Column Layout on Desktop */}
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+            {/* Left Column - Text Content */}
+            <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+              {/* Badge */}
+              <div className="inline-block mb-4 px-3 py-1 rounded-full text-xs font-semibold" style={{ backgroundColor: '#e0efff', color: '#669bbc' }}>
+                ✨ All-in-One Finance Solution
+              </div>
 
-          {/* Subtitle with Animation */}
-          <div className={`transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            <p className="text-lg md:text-2xl lg:text-3xl mb-3 md:mb-6 font-semibold" style={{ color: '#669bbc' }}>
-              Your Personal Finance Management Tool
-            </p>
-          </div>
+              {/* Main Heading */}
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r" style={{ 
+                backgroundImage: 'linear-gradient(to right, #003049, #669bbc)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                lineHeight: '1.2'
+              }}>
+                Welcome To HSFIN!
+              </h1>
 
-          {/* Description with Animation */}
-          <div className={`transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            <p className="text-sm md:text-base lg:text-lg mb-6 md:mb-12 text-gray-600 max-w-2xl mx-auto leading-relaxed px-2">
-              Manage your daily expenses, loans, credit cards, and more all in one place.
-              Track your financial journey with ease and precision.
-            </p>
-          </div>
+              {/* Subtitle */}
+              <p className="text-lg md:text-xl mb-4 font-semibold" style={{ color: '#669bbc' }}>
+                Your Personal Finance Management Tool
+              </p>
 
-          {/* CTA Button with Animation */}
-          <div className={`transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            <button
-              onClick={() => setIsLoginModalOpen(true)}
-              className="text-white px-6 md:px-10 py-2.5 md:py-4 rounded-xl text-base md:text-lg font-semibold transition-all hover:scale-110 shadow-2xl relative overflow-hidden group"
-              style={{ backgroundColor: '#669bbc' }}
-              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#5588aa'}
-              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#669bbc'}
-            >
-              <span className="relative z-10 flex items-center space-x-2">
-                <span>Get Started</span>
-                <span className="text-lg md:text-xl">→</span>
-              </span>
-              <span className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></span>
-            </button>
+              {/* Description */}
+              <p className="text-sm md:text-base mb-6 text-gray-600 leading-relaxed">
+                Take complete control of your finances with HSFIN. Track expenses, manage loans, monitor credit cards, 
+                and analyze your financial health—all from one powerful dashboard.
+              </p>
+
+              {/* Key Features List */}
+              <div className="mb-6 space-y-2">
+                <div className="flex items-center text-sm text-gray-700">
+                  <span className="mr-2" style={{ color: '#669bbc' }}>✓</span>
+                  <span>Real-time expense tracking and categorization</span>
+                </div>
+                <div className="flex items-center text-sm text-gray-700">
+                  <span className="mr-2" style={{ color: '#669bbc' }}>✓</span>
+                  <span>Loan management and payment scheduling</span>
+                </div>
+                <div className="flex items-center text-sm text-gray-700">
+                  <span className="mr-2" style={{ color: '#669bbc' }}>✓</span>
+                  <span>Credit card balance and transaction monitoring</span>
+                </div>
+                <div className="flex items-center text-sm text-gray-700">
+                  <span className="mr-2" style={{ color: '#669bbc' }}>✓</span>
+                  <span>Comprehensive financial analytics and reports</span>
+                </div>
+              </div>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-3">
+                <button
+                  onClick={() => setIsLoginModalOpen(true)}
+                  className="text-white px-6 py-2.5 rounded-lg text-sm md:text-base font-semibold transition-all hover:scale-105 relative overflow-hidden group"
+                  style={{ backgroundColor: '#669bbc' }}
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#5588aa'}
+                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#669bbc'}
+                >
+                  <span className="relative z-10 flex items-center justify-center space-x-2">
+                    <span>Get Started Free</span>
+                    <span>→</span>
+                  </span>
+                  <span className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></span>
+                </button>
+                <button
+                  onClick={() => {
+                    const element = document.querySelector('.features-section');
+                    element?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="px-6 py-2.5 rounded-lg text-sm md:text-base font-semibold transition-all hover:scale-105 border-2"
+                  style={{ borderColor: '#669bbc', color: '#669bbc', backgroundColor: 'transparent' }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = '#f0f7ff';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                  }}
+                >
+                  Learn More
+                </button>
+              </div>
+
+              {/* Stats */}
+              <div className="mt-8 grid grid-cols-3 gap-4 pt-6 border-t" style={{ borderColor: '#e5e7eb' }}>
+                <div className="text-center">
+                  <div className="text-xl md:text-2xl font-bold" style={{ color: '#003049' }}>100%</div>
+                  <div className="text-xs text-gray-600 mt-1">Secure</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-xl md:text-2xl font-bold" style={{ color: '#003049' }}>24/7</div>
+                  <div className="text-xs text-gray-600 mt-1">Access</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-xl md:text-2xl font-bold" style={{ color: '#003049' }}>Free</div>
+                  <div className="text-xs text-gray-600 mt-1">Forever</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column - Visual Content */}
+            <div className={`transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+              <div className="relative">
+                {/* Feature Cards Preview */}
+                <div className="bg-white rounded-2xl p-6 shadow-lg">
+                  <div className="space-y-4">
+                    <div className="flex items-center space-x-3 p-3 rounded-lg" style={{ backgroundColor: '#f0f7ff' }}>
+                      <div className="text-2xl">📊</div>
+                      <div>
+                        <div className="text-sm font-semibold" style={{ color: '#003049' }}>Dashboard Overview</div>
+                        <div className="text-xs text-gray-500">Real-time financial insights</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-3 p-3 rounded-lg" style={{ backgroundColor: '#f0f7ff' }}>
+                      <div className="text-2xl">💳</div>
+                      <div>
+                        <div className="text-sm font-semibold" style={{ color: '#003049' }}>Expense Tracking</div>
+                        <div className="text-xs text-gray-500">Manage all transactions</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-3 p-3 rounded-lg" style={{ backgroundColor: '#f0f7ff' }}>
+                      <div className="text-2xl">📈</div>
+                      <div>
+                        <div className="text-sm font-semibold" style={{ color: '#003049' }}>Analytics & Reports</div>
+                        <div className="text-xs text-gray-500">Comprehensive analysis</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-3 p-3 rounded-lg" style={{ backgroundColor: '#f0f7ff' }}>
+                      <div className="text-2xl">💰</div>
+                      <div>
+                        <div className="text-sm font-semibold" style={{ color: '#003049' }}>Loan Management</div>
+                        <div className="text-xs text-gray-500">Track payments & schedules</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Decorative Elements */}
+                <div className="absolute -top-4 -right-4 w-20 h-20 rounded-full opacity-20" style={{ backgroundColor: '#669bbc' }}></div>
+                <div className="absolute -bottom-4 -left-4 w-16 h-16 rounded-full opacity-15" style={{ backgroundColor: '#003049' }}></div>
+              </div>
+            </div>
           </div>
 
           {/* Feature Cards - Desktop Grid / Mobile Slider */}
-          <div className={`mt-10 md:mt-20 transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <div className={`features-section mt-10 md:mt-16 transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             {/* Desktop: Grid View */}
             <div className="hidden md:grid md:grid-cols-3 gap-6">
               {features.map((feature, index) => (
@@ -157,7 +259,7 @@ const Home = () => {
                     key={index} 
                     className="min-w-full snap-center px-2"
                   >
-                    <div className="bg-white p-5 rounded-xl shadow-lg mx-2">
+                    <div className="bg-white p-5 rounded-xl mx-2">
                       <div className="text-3xl mb-3 text-center">{feature.icon}</div>
                       <h3 className="text-lg font-bold mb-2 text-center" style={{ color: '#003049' }}>{feature.title}</h3>
                       <p className="text-sm text-gray-600 text-center">{feature.description}</p>
