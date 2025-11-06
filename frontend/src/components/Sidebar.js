@@ -24,22 +24,22 @@ const Sidebar = () => {
       <div
         className="hidden md:block fixed left-0 top-0 h-full w-64 bg-white shadow-md z-40"
       >
-        <div className="px-4 py-5 border-b border-gray-200 bg-gradient-to-br from-white to-gray-50">
+        <div className="px-2 md:px-4 py-3 md:py-5 border-b border-gray-200 bg-gradient-to-br from-white to-gray-50">
           <div className="flex items-center justify-center">
             <img 
               src={logo} 
               alt="HSFIN Logo" 
-              className="h-12 md:h-14 w-auto object-contain transition-transform duration-300 hover:scale-105"
+              className="h-10 md:h-14 w-auto object-contain transition-transform duration-300 hover:scale-105"
               style={{ maxHeight: '56px' }}
             />
           </div>
         </div>
-        <nav className="mt-2">
+        <nav className="mt-1 md:mt-2">
           {menuItems.map((item) => (
             <Link
               key={item.path}
               to={item.path}
-              className={`flex items-center px-4 py-2.5 text-sm transition-all duration-200 ${
+              className={`flex items-center px-2 md:px-4 py-2 md:py-2.5 text-xs md:text-sm transition-all duration-200 ${
                 location.pathname === item.path 
                   ? 'text-white font-semibold' 
                   : 'text-gray-700 hover:text-gray-900'
@@ -65,7 +65,7 @@ const Sidebar = () => {
                 }
               }}
             >
-              <span className="mr-3 text-base">{item.icon}</span>
+              <span className="mr-2 md:mr-3 text-sm md:text-base">{item.icon}</span>
               <span>{item.label}</span>
             </Link>
           ))}

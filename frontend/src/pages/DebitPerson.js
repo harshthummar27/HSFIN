@@ -63,28 +63,28 @@ const DebitPerson = () => {
   const totalSum = entries.reduce((sum, entry) => sum + (entry.rupees || 0), 0);
 
   return (
-    <div className="p-4 md:p-6" style={{ backgroundColor: '#f8fafc', minHeight: '100vh' }}>
+    <div className="p-2 md:p-6" style={{ backgroundColor: '#f8fafc', minHeight: '100vh' }}>
       {/* Page Header */}
-      <div className="mb-6">
-        <h1 className="text-2xl md:text-3xl font-bold" style={{ color: '#003049' }}>Debit Person</h1>
-        <p className="text-gray-600 mt-1">Track money you owe to others</p>
+      <div className="mb-3 md:mb-6">
+        <h1 className="text-lg md:text-3xl font-bold" style={{ color: '#003049' }}>Debit Person</h1>
+        <p className="text-xs md:text-base text-gray-600 mt-0.5 md:mt-1">Track money you owe to others</p>
       </div>
 
       {/* Total Sum Card */}
-      <div className="bg-gradient-to-br from-white to-red-50 p-5 rounded-xl shadow-lg mb-6 border-l-4 border-red-500 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+      <div className="bg-gradient-to-br from-white to-red-50 p-3 md:p-5 rounded-lg md:rounded-xl shadow-md md:shadow-lg mb-3 md:mb-6 border-l-4 border-red-500 hover:shadow-lg md:hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
         <div className="flex items-center justify-between mb-2">
-          <h3 className="text-gray-600 text-sm font-semibold uppercase tracking-wide">Total Debit Amount</h3>
-          <span className="text-2xl">➖</span>
+          <h3 className="text-gray-600 text-xs md:text-sm font-semibold uppercase tracking-wide">Total Debit Amount</h3>
+          <span className="text-lg md:text-2xl">➖</span>
         </div>
-        <p className="text-3xl md:text-4xl font-bold text-red-600 mb-2">₹{totalSum.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
-        <p className="text-sm text-gray-500">{entries.length} {entries.length === 1 ? 'entry' : 'entries'}</p>
+        <p className="text-2xl md:text-4xl font-bold text-red-600 mb-1 md:mb-2">₹{totalSum.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+        <p className="text-xs md:text-sm text-gray-500">{entries.length} {entries.length === 1 ? 'entry' : 'entries'}</p>
       </div>
 
       {/* Form Section */}
-      <div className="bg-white p-5 md:p-6 rounded-xl shadow-lg mb-6">
-        <div className="flex items-center mb-4">
-          <span className="text-2xl mr-3">➕</span>
-          <h2 className="text-xl md:text-2xl font-bold text-gray-700">Add New Debit Entry</h2>
+      <div className="bg-white p-3 md:p-6 rounded-lg md:rounded-xl shadow-md md:shadow-lg mb-3 md:mb-6">
+        <div className="flex items-center mb-2 md:mb-4">
+          <span className="text-lg md:text-2xl mr-2 md:mr-3">➕</span>
+          <h2 className="text-sm md:text-2xl font-bold text-gray-700">Add New Debit Entry</h2>
         </div>
         <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-4 gap-2 md:gap-3">
           <div>
@@ -135,34 +135,34 @@ const DebitPerson = () => {
       </div>
 
       {/* Table Section */}
-      <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-        <div className="p-4 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100">
-          <h2 className="text-lg font-bold text-gray-700">Debit Entries</h2>
+      <div className="bg-white rounded-lg md:rounded-xl shadow-md md:shadow-lg overflow-hidden">
+        <div className="p-3 md:p-4 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100">
+          <h2 className="text-sm md:text-lg font-bold text-gray-700">Debit Entries</h2>
         </div>
         <div className="overflow-x-auto">
           <table className="min-w-full">
             <thead>
               <tr className="bg-gradient-to-r from-gray-50 to-gray-100">
-                <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">Date</th>
-                <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">Rupees</th>
-                <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">Note</th>
-                <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">Actions</th>
+                <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-semibold text-gray-700 uppercase tracking-wider">Date</th>
+                <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-semibold text-gray-700 uppercase tracking-wider">Rupees</th>
+                <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-semibold text-gray-700 uppercase tracking-wider">Note</th>
+                <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-semibold text-gray-700 uppercase tracking-wider">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
               {entries.map((entry) => (
                 <tr key={entry._id} className="hover:bg-gray-50 transition-colors">
-                  <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">
+                  <td className="px-2 md:px-4 py-2 md:py-3 whitespace-nowrap text-xs md:text-sm text-gray-900">
                     {new Date(entry.date).toLocaleDateString()}
                   </td>
-                  <td className="px-4 py-3 whitespace-nowrap text-sm font-bold text-red-600">
+                  <td className="px-2 md:px-4 py-2 md:py-3 whitespace-nowrap text-xs md:text-sm font-bold text-red-600">
                     ₹{(entry.rupees || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                   </td>
-                  <td className="px-4 py-3 text-sm text-gray-900">{entry.note || '-'}</td>
-                  <td className="px-4 py-3 whitespace-nowrap">
+                  <td className="px-2 md:px-4 py-2 md:py-3 text-xs md:text-sm text-gray-900">{entry.note || '-'}</td>
+                  <td className="px-2 md:px-4 py-2 md:py-3 whitespace-nowrap">
                     <button
                       onClick={() => handleDelete(entry._id)}
-                      className="text-red-600 hover:text-red-800 font-semibold text-sm transition-colors"
+                      className="text-red-600 hover:text-red-800 font-semibold text-xs md:text-sm transition-colors"
                     >
                       Delete
                     </button>
@@ -171,7 +171,7 @@ const DebitPerson = () => {
               ))}
               {entries.length === 0 && (
                 <tr>
-                  <td colSpan="4" className="px-4 py-8 text-center text-gray-500 text-sm">
+                  <td colSpan="4" className="px-2 md:px-4 py-4 md:py-8 text-center text-gray-500 text-xs md:text-sm">
                     No debit person entries found
                   </td>
                 </tr>

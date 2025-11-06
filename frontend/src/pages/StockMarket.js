@@ -101,23 +101,23 @@ const StockMarket = () => {
   const totalFund = initialBalance + totalProfitLoss;
 
   return (
-    <div className="p-4 md:p-6" style={{ backgroundColor: '#f8fafc', minHeight: '100vh' }}>
+    <div className="p-2 md:p-6" style={{ backgroundColor: '#f8fafc', minHeight: '100vh' }}>
       {/* Page Header */}
-      <div className="mb-6">
-        <h1 className="text-2xl md:text-3xl font-bold" style={{ color: '#003049' }}>Stock Market</h1>
-        <p className="text-gray-600 mt-1">Track your stock market investments and profits</p>
+      <div className="mb-3 md:mb-6">
+        <h1 className="text-lg md:text-3xl font-bold" style={{ color: '#003049' }}>Stock Market</h1>
+        <p className="text-xs md:text-base text-gray-600 mt-0.5 md:mt-1">Track your stock market investments and profits</p>
       </div>
 
       {/* Total Fund Card */}
-      <div className={`bg-gradient-to-br from-white ${totalFund >= 0 ? 'to-green-50' : 'to-red-50'} p-5 rounded-xl shadow-lg mb-6 border-l-4 ${totalFund >= 0 ? 'border-green-500' : 'border-red-500'} hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1`}>
+      <div className={`bg-gradient-to-br from-white ${totalFund >= 0 ? 'to-green-50' : 'to-red-50'} p-3 md:p-5 rounded-lg md:rounded-xl shadow-md md:shadow-lg mb-3 md:mb-6 border-l-4 ${totalFund >= 0 ? 'border-green-500' : 'border-red-500'} hover:shadow-lg md:hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1`}>
         <div className="flex items-center justify-between mb-2">
-          <h3 className="text-gray-600 text-sm font-semibold uppercase tracking-wide">Total Fund</h3>
-          <span className="text-2xl">📈</span>
+          <h3 className="text-gray-600 text-xs md:text-sm font-semibold uppercase tracking-wide">Total Fund</h3>
+          <span className="text-lg md:text-2xl">📈</span>
         </div>
-        <p className={`text-3xl md:text-4xl font-bold mb-2 ${totalFund >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+        <p className={`text-2xl md:text-4xl font-bold mb-1 md:mb-2 ${totalFund >= 0 ? 'text-green-600' : 'text-red-600'}`}>
           ₹{totalFund.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
         </p>
-        <div className="mt-2 text-sm text-gray-600 space-y-1">
+        <div className="mt-2 text-xs md:text-sm text-gray-600 space-y-1">
           <p>Initial Balance: <span className="font-semibold">₹{initialBalance.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span></p>
           <p>Total P/L: 
             <span className={`font-semibold ${totalProfitLoss >= 0 ? 'text-green-600' : 'text-red-600'}`}>
@@ -128,8 +128,8 @@ const StockMarket = () => {
       </div>
 
       {/* Balance Form Section */}
-      <div className="bg-white p-3 md:p-4 rounded-lg shadow-md mb-4 md:mb-6">
-        <h2 className="text-base md:text-lg font-semibold text-gray-700 mb-2 md:mb-3">Set Initial Balance</h2>
+      <div className="bg-white p-3 md:p-4 rounded-lg md:rounded-xl shadow-md md:shadow-lg mb-3 md:mb-6">
+        <h2 className="text-sm md:text-lg font-semibold text-gray-700 mb-2 md:mb-3">Set Initial Balance</h2>
         <form onSubmit={handleBalanceSubmit} className="flex gap-2 md:gap-3">
           <div className="flex-1">
             <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1">Initial Balance</label>
@@ -159,8 +159,8 @@ const StockMarket = () => {
       </div>
 
       {/* Profit/Loss Form Section */}
-      <div className="bg-white p-3 md:p-4 rounded-lg shadow-md mb-4 md:mb-6">
-        <h2 className="text-base md:text-lg font-semibold text-gray-700 mb-2 md:mb-3">Add Profit/Loss Entry</h2>
+      <div className="bg-white p-3 md:p-4 rounded-lg md:rounded-xl shadow-md md:shadow-lg mb-3 md:mb-6">
+        <h2 className="text-sm md:text-lg font-semibold text-gray-700 mb-2 md:mb-3">Add Profit/Loss Entry</h2>
         <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-4 gap-2 md:gap-3">
           <div>
             <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1">Date</label>
@@ -211,33 +211,36 @@ const StockMarket = () => {
       </div>
 
       {/* Table Section */}
-      <div className="bg-white rounded-lg shadow-md overflow-hidden">
+      <div className="bg-white rounded-lg md:rounded-xl shadow-md md:shadow-lg overflow-hidden">
+        <div className="p-3 md:p-4 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100">
+          <h2 className="text-sm md:text-lg font-bold text-gray-700">Profit/Loss Entries</h2>
+        </div>
         <div className="overflow-x-auto">
-          <table className="min-w-full text-xs md:text-sm">
-            <thead className="bg-gray-100">
-              <tr>
-                <th className="px-2 md:px-3 py-2 text-left font-medium text-gray-700 uppercase">Date</th>
-                <th className="px-2 md:px-3 py-2 text-left font-medium text-gray-700 uppercase">Profit/Loss</th>
-                <th className="px-2 md:px-3 py-2 text-left font-medium text-gray-700 uppercase">Note</th>
-                <th className="px-2 md:px-3 py-2 text-left font-medium text-gray-700 uppercase">Actions</th>
+          <table className="min-w-full">
+            <thead>
+              <tr className="bg-gradient-to-r from-gray-50 to-gray-100">
+                <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-semibold text-gray-700 uppercase tracking-wider">Date</th>
+                <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-semibold text-gray-700 uppercase tracking-wider">Profit/Loss</th>
+                <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-semibold text-gray-700 uppercase tracking-wider">Note</th>
+                <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-semibold text-gray-700 uppercase tracking-wider">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
               {entries.map((entry) => (
-                <tr key={entry._id} className="hover:bg-gray-50">
-                  <td className="px-2 md:px-3 py-2 whitespace-nowrap text-gray-900">
+                <tr key={entry._id} className="hover:bg-gray-50 transition-colors">
+                  <td className="px-2 md:px-4 py-2 md:py-3 whitespace-nowrap text-xs md:text-sm text-gray-900">
                     {new Date(entry.date).toLocaleDateString()}
                   </td>
-                  <td className={`px-2 md:px-3 py-2 whitespace-nowrap font-semibold ${
+                  <td className={`px-2 md:px-4 py-2 md:py-3 whitespace-nowrap text-xs md:text-sm font-semibold ${
                     (entry.profitLoss || 0) >= 0 ? 'text-green-600' : 'text-red-600'
                   }`}>
                     {(entry.profitLoss || 0) >= 0 ? '+' : ''}₹{(entry.profitLoss || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                   </td>
-                  <td className="px-2 md:px-3 py-2 text-gray-900">{entry.note || '-'}</td>
-                  <td className="px-2 md:px-3 py-2 whitespace-nowrap">
+                  <td className="px-2 md:px-4 py-2 md:py-3 text-xs md:text-sm text-gray-900">{entry.note || '-'}</td>
+                  <td className="px-2 md:px-4 py-2 md:py-3 whitespace-nowrap">
                     <button
                       onClick={() => handleDelete(entry._id)}
-                      className="text-red-600 hover:text-red-800 font-medium text-xs md:text-sm"
+                      className="text-red-600 hover:text-red-800 font-semibold text-xs md:text-sm transition-colors"
                     >
                       Delete
                     </button>
@@ -246,7 +249,7 @@ const StockMarket = () => {
               ))}
               {entries.length === 0 && (
                 <tr>
-                  <td colSpan="4" className="px-2 md:px-3 py-3 text-center text-gray-500 text-xs md:text-sm">
+                  <td colSpan="4" className="px-2 md:px-4 py-4 md:py-8 text-center text-gray-500 text-xs md:text-sm">
                     No profit/loss entries found. Add your first entry above.
                   </td>
                 </tr>

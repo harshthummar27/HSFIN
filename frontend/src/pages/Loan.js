@@ -68,42 +68,42 @@ const Loan = () => {
   }, 0);
 
   return (
-    <div className="p-4 md:p-6" style={{ backgroundColor: '#f8fafc', minHeight: '100vh' }}>
+    <div className="p-2 md:p-6" style={{ backgroundColor: '#f8fafc', minHeight: '100vh' }}>
       {/* Page Header */}
-      <div className="mb-6">
-        <h1 className="text-2xl md:text-3xl font-bold" style={{ color: '#003049' }}>Loan Management</h1>
-        <p className="text-gray-600 mt-1">Track and manage your loan EMIs</p>
+      <div className="mb-3 md:mb-6">
+        <h1 className="text-lg md:text-3xl font-bold" style={{ color: '#003049' }}>Loan Management</h1>
+        <p className="text-xs md:text-base text-gray-600 mt-0.5 md:mt-1">Track and manage your loan EMIs</p>
       </div>
 
       {/* Total Sum Card */}
-      <div className="bg-gradient-to-br from-white to-purple-50 p-5 rounded-xl shadow-lg mb-6 border-l-4 border-purple-500 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+      <div className="bg-gradient-to-br from-white to-purple-50 p-3 md:p-5 rounded-lg md:rounded-xl shadow-md md:shadow-lg mb-3 md:mb-6 border-l-4 border-purple-500 hover:shadow-lg md:hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
         <div className="flex items-center justify-between mb-2">
-          <h3 className="text-gray-600 text-sm font-semibold uppercase tracking-wide">Total Outstanding Loan Amount</h3>
-          <span className="text-2xl">🏦</span>
+          <h3 className="text-gray-600 text-xs md:text-sm font-semibold uppercase tracking-wide">Total Outstanding Loan Amount</h3>
+          <span className="text-lg md:text-2xl">🏦</span>
         </div>
-        <p className="text-3xl md:text-4xl font-bold text-purple-600 mb-2">₹{(totalSum || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
-        <p className="text-sm text-gray-500">{loans.length} {loans.length === 1 ? 'EMI pending' : 'EMIs pending'}</p>
+        <p className="text-2xl md:text-4xl font-bold text-purple-600 mb-1 md:mb-2">₹{(totalSum || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+        <p className="text-xs md:text-sm text-gray-500">{loans.length} {loans.length === 1 ? 'EMI pending' : 'EMIs pending'}</p>
       </div>
 
       {/* Create Loan Button */}
-      <div className="mb-6">
+      <div className="mb-3 md:mb-6">
         {!showForm ? (
           <button
             onClick={() => setShowForm(true)}
-            className="text-white text-sm font-semibold py-3 px-6 rounded-lg transition-all hover:scale-105 shadow-lg flex items-center gap-2"
+            className="text-white text-xs md:text-sm font-semibold py-2 md:py-3 px-4 md:px-6 rounded-lg transition-all hover:scale-105 shadow-md md:shadow-lg flex items-center gap-2"
             style={{ backgroundColor: '#669bbc' }}
             onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#5588aa')}
             onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#669bbc')}
           >
-            <span className="text-xl">➕</span>
+            <span className="text-lg md:text-xl">➕</span>
             <span>Create a Loan</span>
           </button>
         ) : (
-          <div className="bg-white p-5 md:p-6 rounded-xl shadow-lg">
-            <div className="flex justify-between items-center mb-4">
+          <div className="bg-white p-3 md:p-6 rounded-lg md:rounded-xl shadow-md md:shadow-lg">
+            <div className="flex justify-between items-center mb-2 md:mb-4">
               <div className="flex items-center">
-                <span className="text-2xl mr-3">🏦</span>
-                <h2 className="text-xl md:text-2xl font-bold text-gray-700">Create New Loan</h2>
+                <span className="text-lg md:text-2xl mr-2 md:mr-3">🏦</span>
+                <h2 className="text-sm md:text-2xl font-bold text-gray-700">Create New Loan</h2>
               </div>
               <button
                 onClick={() => {
@@ -185,18 +185,18 @@ const Loan = () => {
       </div>
 
       {/* Table Section */}
-      <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-        <div className="p-4 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100">
-          <h2 className="text-lg font-bold text-gray-700">Loan Entries</h2>
+      <div className="bg-white rounded-lg md:rounded-xl shadow-md md:shadow-lg overflow-hidden">
+        <div className="p-3 md:p-4 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100">
+          <h2 className="text-sm md:text-lg font-bold text-gray-700">Loan Entries</h2>
         </div>
         <div className="overflow-x-auto">
           <table className="min-w-full">
             <thead>
               <tr className="bg-gradient-to-r from-gray-50 to-gray-100">
-                <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">Bank Name</th>
-                <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">Repayment Date (EMI)</th>
-                <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">Amount</th>
-                <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider">Actions</th>
+                <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-semibold text-gray-700 uppercase tracking-wider">Bank Name</th>
+                <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-semibold text-gray-700 uppercase tracking-wider">Repayment Date (EMI)</th>
+                <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-semibold text-gray-700 uppercase tracking-wider">Amount</th>
+                <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-semibold text-gray-700 uppercase tracking-wider">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
@@ -222,11 +222,11 @@ const Loan = () => {
                 }
                 
                 return (
-                  <tr key={loan._id} className={`hover:bg-gray-50 ${isOverdue ? 'bg-red-50' : ''}`}>
-                    <td className="px-2 md:px-3 py-2 whitespace-nowrap font-medium text-gray-900">
+                  <tr key={loan._id} className={`hover:bg-gray-50 transition-colors ${isOverdue ? 'bg-red-50' : ''}`}>
+                    <td className="px-2 md:px-4 py-2 md:py-3 whitespace-nowrap text-xs md:text-sm font-medium text-gray-900">
                       {bankName}
                     </td>
-                    <td className="px-2 md:px-3 py-2 whitespace-nowrap text-gray-900">
+                    <td className="px-2 md:px-4 py-2 md:py-3 whitespace-nowrap text-xs md:text-sm text-gray-900">
                       <div>
                         {parsedDate ? parsedDate.toLocaleDateString() : 'N/A'}
                         {isOverdue && (
@@ -234,10 +234,10 @@ const Loan = () => {
                         )}
                       </div>
                     </td>
-                    <td className="px-2 md:px-3 py-2 whitespace-nowrap font-semibold text-purple-600">
+                    <td className="px-2 md:px-4 py-2 md:py-3 whitespace-nowrap text-xs md:text-sm font-semibold text-purple-600">
                       ₹{(amount || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                     </td>
-                    <td className="px-2 md:px-3 py-2 whitespace-nowrap">
+                    <td className="px-2 md:px-4 py-2 md:py-3 whitespace-nowrap">
                       <button
                         onClick={() => handleEMIPaid(loan._id)}
                         className="bg-green-600 hover:bg-green-700 text-white text-xs md:text-sm font-semibold py-1 md:py-1.5 px-2 md:px-3 rounded-lg transition-colors"
@@ -250,7 +250,7 @@ const Loan = () => {
               })}
               {loans.length === 0 && (
                 <tr>
-                  <td colSpan="4" className="px-2 md:px-3 py-3 text-center text-gray-500 text-xs md:text-sm">
+                  <td colSpan="4" className="px-2 md:px-4 py-4 md:py-8 text-center text-gray-500 text-xs md:text-sm">
                     No loan entries found. Click "Create a Loan" to add your first loan.
                   </td>
                 </tr>

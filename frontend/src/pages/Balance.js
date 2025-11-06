@@ -111,59 +111,59 @@ const Balance = () => {
   const totalBalance = currentCashBalance + currentAccountBalance;
 
   return (
-    <div className="p-4 md:p-6" style={{ backgroundColor: '#f8fafc', minHeight: '100vh' }}>
+    <div className="p-2 md:p-6" style={{ backgroundColor: '#f8fafc', minHeight: '100vh' }}>
       {/* Page Header */}
-      <div className="mb-6">
-        <h1 className="text-2xl md:text-3xl font-bold" style={{ color: '#003049' }}>Balance Management</h1>
-        <p className="text-gray-600 mt-1">Track your cash and account balances</p>
+      <div className="mb-3 md:mb-6">
+        <h1 className="text-lg md:text-3xl font-bold" style={{ color: '#003049' }}>Balance Management</h1>
+        <p className="text-xs md:text-base text-gray-600 mt-0.5 md:mt-1">Track your cash and account balances</p>
       </div>
 
       {/* Total Balance Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-6">
-        <div className="bg-gradient-to-br from-white to-blue-50 p-5 rounded-xl shadow-lg border-l-4 border-blue-500 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-6 mb-3 md:mb-6">
+        <div className="bg-gradient-to-br from-white to-blue-50 p-3 md:p-5 rounded-lg md:rounded-xl shadow-md md:shadow-lg border-l-4 border-blue-500 hover:shadow-lg md:hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-gray-600 text-sm font-semibold uppercase tracking-wide">Cash Balance</h3>
-            <span className="text-2xl">💵</span>
+            <h3 className="text-gray-600 text-xs md:text-sm font-semibold uppercase tracking-wide">Cash Balance</h3>
+            <span className="text-lg md:text-2xl">💵</span>
           </div>
-          <p className="text-3xl md:text-4xl font-bold text-blue-600 mb-2">
+          <p className="text-2xl md:text-4xl font-bold text-blue-600 mb-1 md:mb-2">
             ₹{currentCashBalance.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
           </p>
-          <div className="mt-2 text-sm text-gray-600 space-y-1">
+          <div className="mt-2 text-xs md:text-sm text-gray-600 space-y-1">
             <p>Initial: <span className="font-semibold">₹{initialCashBalance.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span></p>
             <p className={totalCashTransactions >= 0 ? 'text-green-600' : 'text-red-600'}>
               Transactions: <span className="font-semibold">{(totalCashTransactions >= 0 ? '+' : '')}₹{totalCashTransactions.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
             </p>
           </div>
         </div>
-        <div className="bg-gradient-to-br from-white to-green-50 p-5 rounded-xl shadow-lg border-l-4 border-green-500 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+        <div className="bg-gradient-to-br from-white to-green-50 p-3 md:p-5 rounded-lg md:rounded-xl shadow-md md:shadow-lg border-l-4 border-green-500 hover:shadow-lg md:hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-gray-600 text-sm font-semibold uppercase tracking-wide">Account Balance</h3>
-            <span className="text-2xl">🏦</span>
+            <h3 className="text-gray-600 text-xs md:text-sm font-semibold uppercase tracking-wide">Account Balance</h3>
+            <span className="text-lg md:text-2xl">🏦</span>
           </div>
-          <p className="text-3xl md:text-4xl font-bold text-green-600 mb-2">
+          <p className="text-2xl md:text-4xl font-bold text-green-600 mb-1 md:mb-2">
             ₹{currentAccountBalance.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
           </p>
-          <div className="mt-2 text-sm text-gray-600 space-y-1">
+          <div className="mt-2 text-xs md:text-sm text-gray-600 space-y-1">
             <p>Initial: <span className="font-semibold">₹{initialAccountBalance.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span></p>
             <p className={totalAccountTransactions >= 0 ? 'text-green-600' : 'text-red-600'}>
               Transactions: <span className="font-semibold">{(totalAccountTransactions >= 0 ? '+' : '')}₹{totalAccountTransactions.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
             </p>
           </div>
         </div>
-        <div className="bg-gradient-to-br from-white to-purple-50 p-5 rounded-xl shadow-lg border-l-4 border-purple-500 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+        <div className="bg-gradient-to-br from-white to-purple-50 p-3 md:p-5 rounded-lg md:rounded-xl shadow-md md:shadow-lg border-l-4 border-purple-500 hover:shadow-lg md:hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-gray-600 text-sm font-semibold uppercase tracking-wide">Total Balance</h3>
-            <span className="text-2xl">💰</span>
+            <h3 className="text-gray-600 text-xs md:text-sm font-semibold uppercase tracking-wide">Total Balance</h3>
+            <span className="text-lg md:text-2xl">💰</span>
           </div>
-          <p className="text-3xl md:text-4xl font-bold text-purple-600">
+          <p className="text-2xl md:text-4xl font-bold text-purple-600">
             ₹{totalBalance.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
           </p>
         </div>
       </div>
 
       {/* Set Initial Balance Form Section */}
-      <div className="bg-white p-3 md:p-4 rounded-lg shadow-md mb-4 md:mb-6">
-        <h2 className="text-base md:text-lg font-semibold text-gray-700 mb-2 md:mb-3">Set Initial Balance</h2>
+      <div className="bg-white p-3 md:p-4 rounded-lg md:rounded-xl shadow-md md:shadow-lg mb-3 md:mb-6">
+        <h2 className="text-sm md:text-lg font-semibold text-gray-700 mb-2 md:mb-3">Set Initial Balance</h2>
         <form onSubmit={handleBalanceSubmit} className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-3">
           <div>
             <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1">Initial Cash Balance</label>
@@ -203,8 +203,8 @@ const Balance = () => {
       </div>
 
       {/* Add Transaction Form Section */}
-      <div className="bg-white p-3 md:p-4 rounded-lg shadow-md mb-4 md:mb-6">
-        <h2 className="text-base md:text-lg font-semibold text-gray-700 mb-2 md:mb-3">Add Transaction (+/-)</h2>
+      <div className="bg-white p-3 md:p-4 rounded-lg md:rounded-xl shadow-md md:shadow-lg mb-3 md:mb-6">
+        <h2 className="text-sm md:text-lg font-semibold text-gray-700 mb-2 md:mb-3">Add Transaction (+/-)</h2>
         <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-4 gap-2 md:gap-3">
           <div>
             <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1">Date</label>
@@ -266,28 +266,28 @@ const Balance = () => {
       </div>
 
       {/* Transactions Table Section */}
-      <div className="bg-white rounded-lg shadow-md overflow-hidden">
-        <div className="p-3 md:p-4 border-b border-gray-200">
-          <h2 className="text-base md:text-lg font-semibold text-gray-700">Transaction History</h2>
+      <div className="bg-white rounded-lg md:rounded-xl shadow-md md:shadow-lg overflow-hidden">
+        <div className="p-3 md:p-4 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100">
+          <h2 className="text-sm md:text-lg font-bold text-gray-700">Transaction History</h2>
         </div>
         <div className="overflow-x-auto">
-          <table className="min-w-full text-xs md:text-sm">
-            <thead className="bg-gray-100">
-              <tr>
-                <th className="px-2 md:px-3 py-2 text-left font-medium text-gray-700 uppercase">Date</th>
-                <th className="px-2 md:px-3 py-2 text-left font-medium text-gray-700 uppercase">Cash Amount</th>
-                <th className="px-2 md:px-3 py-2 text-left font-medium text-gray-700 uppercase">Account Amount</th>
-                <th className="px-2 md:px-3 py-2 text-left font-medium text-gray-700 uppercase">Note</th>
-                <th className="px-2 md:px-3 py-2 text-left font-medium text-gray-700 uppercase">Actions</th>
+          <table className="min-w-full">
+            <thead>
+              <tr className="bg-gradient-to-r from-gray-50 to-gray-100">
+                <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-semibold text-gray-700 uppercase tracking-wider">Date</th>
+                <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-semibold text-gray-700 uppercase tracking-wider">Cash Amount</th>
+                <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-semibold text-gray-700 uppercase tracking-wider">Account Amount</th>
+                <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-semibold text-gray-700 uppercase tracking-wider">Note</th>
+                <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-semibold text-gray-700 uppercase tracking-wider">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
               {transactions.map((entry) => (
-                <tr key={entry._id} className="hover:bg-gray-50">
-                  <td className="px-2 md:px-3 py-2 whitespace-nowrap text-gray-900">
+                <tr key={entry._id} className="hover:bg-gray-50 transition-colors">
+                  <td className="px-2 md:px-4 py-2 md:py-3 whitespace-nowrap text-xs md:text-sm text-gray-900">
                     {new Date(entry.date).toLocaleDateString()}
                   </td>
-                  <td className={`px-2 md:px-3 py-2 whitespace-nowrap font-semibold ${
+                  <td className={`px-2 md:px-4 py-2 md:py-3 whitespace-nowrap text-xs md:text-sm font-semibold ${
                     (entry.cashAmount || 0) >= 0 ? 'text-green-600' : 'text-red-600'
                   }`}>
                     {(entry.cashAmount || 0) !== 0 ? (
@@ -298,7 +298,7 @@ const Balance = () => {
                       <span className="text-gray-400">-</span>
                     )}
                   </td>
-                  <td className={`px-2 md:px-3 py-2 whitespace-nowrap font-semibold ${
+                  <td className={`px-2 md:px-4 py-2 md:py-3 whitespace-nowrap text-xs md:text-sm font-semibold ${
                     (entry.accountAmount || 0) >= 0 ? 'text-green-600' : 'text-red-600'
                   }`}>
                     {(entry.accountAmount || 0) !== 0 ? (
@@ -309,11 +309,11 @@ const Balance = () => {
                       <span className="text-gray-400">-</span>
                     )}
                   </td>
-                  <td className="px-2 md:px-3 py-2 text-gray-900">{entry.note || '-'}</td>
-                  <td className="px-2 md:px-3 py-2 whitespace-nowrap">
+                  <td className="px-2 md:px-4 py-2 md:py-3 text-xs md:text-sm text-gray-900">{entry.note || '-'}</td>
+                  <td className="px-2 md:px-4 py-2 md:py-3 whitespace-nowrap">
                     <button
                       onClick={() => handleDelete(entry._id)}
-                      className="text-red-600 hover:text-red-800 font-medium text-xs md:text-sm"
+                      className="text-red-600 hover:text-red-800 font-semibold text-xs md:text-sm transition-colors"
                     >
                       Delete
                     </button>
@@ -322,7 +322,7 @@ const Balance = () => {
               ))}
               {transactions.length === 0 && (
                 <tr>
-                  <td colSpan="5" className="px-2 md:px-3 py-3 text-center text-gray-500 text-xs md:text-sm">
+                  <td colSpan="5" className="px-2 md:px-4 py-4 md:py-8 text-center text-gray-500 text-xs md:text-sm">
                     No transactions found. Add your first transaction above.
                   </td>
                 </tr>

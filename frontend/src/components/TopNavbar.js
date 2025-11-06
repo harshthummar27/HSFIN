@@ -34,30 +34,30 @@ const TopNavbar = () => {
   return (
     <>
       <nav className="bg-white shadow-md fixed top-0 right-0 left-0 md:left-64 z-30">
-        <div className="px-4 md:px-6 py-2.5 md:py-3 flex justify-between items-center">
-          <div className="flex items-center space-x-3">
+        <div className="px-2 md:px-6 py-2 md:py-3 flex justify-between items-center">
+          <div className="flex items-center space-x-2 md:space-x-3">
             {/* Mobile Menu Button - Animated Hamburger Icon */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden relative w-10 h-10 flex flex-col justify-center items-center rounded-lg transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="md:hidden relative w-8 h-8 md:w-10 md:h-10 flex flex-col justify-center items-center rounded-lg transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
               style={{ backgroundColor: '#003049' }}
               aria-label="Toggle menu"
               aria-expanded={isMobileMenuOpen}
             >
               <span
-                className={`absolute w-5 h-0.5 bg-white transition-all duration-300 ${
+                className={`absolute w-4 md:w-5 h-0.5 bg-white transition-all duration-300 ${
                   isMobileMenuOpen ? 'rotate-45 translate-y-0' : '-translate-y-1.5'
                 }`}
                 style={{ backgroundColor: '#ffffff' }}
               ></span>
               <span
-                className={`absolute w-5 h-0.5 bg-white transition-all duration-300 ${
+                className={`absolute w-4 md:w-5 h-0.5 bg-white transition-all duration-300 ${
                   isMobileMenuOpen ? 'opacity-0' : 'opacity-100'
                 }`}
                 style={{ backgroundColor: '#ffffff' }}
               ></span>
               <span
-                className={`absolute w-5 h-0.5 bg-white transition-all duration-300 ${
+                className={`absolute w-4 md:w-5 h-0.5 bg-white transition-all duration-300 ${
                   isMobileMenuOpen ? '-rotate-45 translate-y-0' : 'translate-y-1.5'
                 }`}
                 style={{ backgroundColor: '#ffffff' }}
@@ -74,21 +74,21 @@ const TopNavbar = () => {
               <div className="h-6 w-px bg-gray-300"></div>
             </div>
             {/* Mobile Logo */}
-            <div className="md:hidden flex items-center space-x-2">
+            <div className="md:hidden flex items-center space-x-1.5 md:space-x-2">
               <img 
                 src={logo} 
                 alt="HSFIN Logo" 
-                className="h-7 w-auto object-contain"
+                className="h-6 md:h-7 w-auto object-contain"
                 style={{ maxHeight: '28px' }}
               />
-              <div className="h-5 w-px bg-gray-300"></div>
+              <div className="h-4 md:h-5 w-px bg-gray-300"></div>
             </div>
-            <h2 className="text-base md:text-lg font-semibold" style={{ color: '#003049' }}>{getPageTitle()}</h2>
+            <h2 className="text-sm md:text-lg font-semibold" style={{ color: '#003049' }}>{getPageTitle()}</h2>
           </div>
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2 md:space-x-4">
             <button
               onClick={handleLogout}
-              className="text-white px-3 md:px-4 py-1.5 md:py-2 rounded-lg transition-all hover:scale-105 shadow-md text-xs md:text-sm font-semibold"
+              className="text-white px-2 md:px-4 py-1 md:py-2 rounded-lg transition-all hover:scale-105 shadow-md text-xs md:text-sm font-semibold"
               style={{ backgroundColor: '#dc2626' }}
               onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#b91c1c'}
               onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#dc2626'}
@@ -113,33 +113,33 @@ const TopNavbar = () => {
             style={{ zIndex: 50 }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="px-4 py-5 border-b border-gray-200 bg-gradient-to-br from-white to-gray-50">
+            <div className="px-2 md:px-4 py-3 md:py-5 border-b border-gray-200 bg-gradient-to-br from-white to-gray-50">
               <div className="flex items-center justify-between">
                 <div className="flex items-center justify-center flex-1">
                   <img 
                     src={logo} 
                     alt="HSFIN Logo" 
-                    className="h-12 w-auto object-contain"
+                    className="h-10 md:h-12 w-auto object-contain"
                     style={{ maxHeight: '48px' }}
                   />
                 </div>
                 <button
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="relative w-8 h-8 flex flex-col justify-center items-center rounded-lg transition-all duration-300 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 ml-4"
+                  className="relative w-7 h-7 md:w-8 md:h-8 flex flex-col justify-center items-center rounded-lg transition-all duration-300 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 ml-2 md:ml-4"
                   aria-label="Close menu"
                 >
                   <span
-                    className="absolute w-4 h-0.5 bg-gray-700 rotate-45 transition-all duration-300"
+                    className="absolute w-3.5 md:w-4 h-0.5 bg-gray-700 rotate-45 transition-all duration-300"
                     style={{ backgroundColor: '#374151' }}
                   ></span>
                   <span
-                    className="absolute w-4 h-0.5 bg-gray-700 -rotate-45 transition-all duration-300"
+                    className="absolute w-3.5 md:w-4 h-0.5 bg-gray-700 -rotate-45 transition-all duration-300"
                     style={{ backgroundColor: '#374151' }}
                   ></span>
                 </button>
               </div>
             </div>
-            <nav className="mt-2">
+            <nav className="mt-1 md:mt-2">
               {[
                 { path: '/dashboard', label: 'Dashboard', icon: '📊' },
                 { path: '/daily-debit', label: 'Daily Debit', icon: '💸' },
@@ -156,7 +156,7 @@ const TopNavbar = () => {
                   key={item.path}
                   to={item.path}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className={`flex items-center px-4 py-2.5 text-sm transition-all duration-200 ${
+                  className={`flex items-center px-2 md:px-4 py-2 md:py-2.5 text-xs md:text-sm transition-all duration-200 ${
                     location.pathname === item.path 
                       ? 'text-white font-semibold' 
                       : 'text-gray-700 hover:text-gray-900'
@@ -182,7 +182,7 @@ const TopNavbar = () => {
                     }
                   }}
                 >
-                  <span className="mr-3 text-base">{item.icon}</span>
+                  <span className="mr-2 md:mr-3 text-sm md:text-base">{item.icon}</span>
                   <span>{item.label}</span>
                 </Link>
               ))}

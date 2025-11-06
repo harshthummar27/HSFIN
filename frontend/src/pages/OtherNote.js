@@ -53,32 +53,32 @@ const OtherNote = () => {
   };
 
   return (
-    <div className="p-4 md:p-6" style={{ backgroundColor: '#f8fafc', minHeight: '100vh' }}>
+    <div className="p-2 md:p-6" style={{ backgroundColor: '#f8fafc', minHeight: '100vh' }}>
       {/* Page Header */}
-      <div className="mb-6">
-        <h1 className="text-2xl md:text-3xl font-bold" style={{ color: '#003049' }}>Other Notes</h1>
-        <p className="text-gray-600 mt-1">Keep track of important notes and reminders</p>
+      <div className="mb-3 md:mb-6">
+        <h1 className="text-lg md:text-3xl font-bold" style={{ color: '#003049' }}>Other Notes</h1>
+        <p className="text-xs md:text-base text-gray-600 mt-0.5 md:mt-1">Keep track of important notes and reminders</p>
       </div>
 
       {/* Form Section */}
-      <div className="bg-white p-5 md:p-6 rounded-xl shadow-lg mb-6">
-        <div className="flex items-center mb-4">
-          <span className="text-2xl mr-3">📝</span>
-          <h2 className="text-xl md:text-2xl font-bold text-gray-700">Add New Note</h2>
+      <div className="bg-white p-3 md:p-6 rounded-lg md:rounded-xl shadow-md md:shadow-lg mb-3 md:mb-6">
+        <div className="flex items-center mb-2 md:mb-4">
+          <span className="text-lg md:text-2xl mr-2 md:mr-3">📝</span>
+          <h2 className="text-sm md:text-2xl font-bold text-gray-700">Add New Note</h2>
         </div>
-        <form onSubmit={handleSubmit} className="flex gap-4">
+        <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-2 md:gap-4">
           <input
             type="text"
             value={note}
             onChange={(e) => setNote(e.target.value)}
             placeholder="Enter your note"
             required
-            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="flex-1 px-3 md:px-4 py-2 text-sm md:text-base border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <button
             type="submit"
             disabled={loading}
-            className="text-white font-semibold py-2 px-6 rounded-lg transition-all hover:scale-105 disabled:opacity-50 shadow-md"
+            className="text-white text-sm md:text-base font-semibold py-2 px-4 md:px-6 rounded-lg transition-all hover:scale-105 disabled:opacity-50 shadow-md whitespace-nowrap"
             style={{ backgroundColor: '#669bbc' }}
             onMouseEnter={(e) => !loading && (e.currentTarget.style.backgroundColor = '#5588aa')}
             onMouseLeave={(e) => !loading && (e.currentTarget.style.backgroundColor = '#669bbc')}
@@ -89,28 +89,28 @@ const OtherNote = () => {
       </div>
 
       {/* Notes List */}
-      <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-        <div className="p-5 md:p-6">
-          <div className="flex items-center mb-4">
-            <span className="text-2xl mr-3">📋</span>
-            <h2 className="text-xl md:text-2xl font-bold text-gray-700">All Notes</h2>
+      <div className="bg-white rounded-lg md:rounded-xl shadow-md md:shadow-lg overflow-hidden">
+        <div className="p-3 md:p-6">
+          <div className="flex items-center mb-2 md:mb-4">
+            <span className="text-lg md:text-2xl mr-2 md:mr-3">📋</span>
+            <h2 className="text-sm md:text-2xl font-bold text-gray-700">All Notes</h2>
           </div>
-          <div className="space-y-4">
+          <div className="space-y-2 md:space-y-4">
             {notes.map((noteItem) => (
               <div
                 key={noteItem._id}
-                className="border-l-4 border-blue-500 pl-5 py-4 bg-gradient-to-r from-gray-50 to-white rounded-r-lg shadow-md hover:shadow-lg transition-all duration-300"
+                className="border-l-4 border-blue-500 pl-3 md:pl-5 py-2 md:py-4 bg-gradient-to-r from-gray-50 to-white rounded-r-lg shadow-sm md:shadow-md hover:shadow-md md:hover:shadow-lg transition-all duration-300"
               >
-                <div className="flex justify-between items-start">
-                  <div className="flex-1">
-                    <p className="text-gray-800 mb-2 font-medium">{noteItem.note}</p>
-                    <p className="text-sm text-gray-500">
+                <div className="flex justify-between items-start gap-2">
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm md:text-base text-gray-800 mb-1 md:mb-2 font-medium break-words">{noteItem.note}</p>
+                    <p className="text-xs md:text-sm text-gray-500">
                       {new Date(noteItem.createdAt).toLocaleString()}
                     </p>
                   </div>
                   <button
                     onClick={() => handleDelete(noteItem._id)}
-                    className="ml-4 text-red-600 hover:text-red-800 font-semibold transition-colors"
+                    className="ml-2 md:ml-4 text-red-600 hover:text-red-800 font-semibold text-xs md:text-sm transition-colors whitespace-nowrap flex-shrink-0"
                   >
                     Delete
                   </button>
@@ -118,9 +118,9 @@ const OtherNote = () => {
               </div>
             ))}
             {notes.length === 0 && (
-              <div className="text-center text-gray-500 py-12">
-                <span className="text-4xl mb-4 block">📝</span>
-                <p className="text-lg">No notes found. Add your first note above!</p>
+              <div className="text-center text-gray-500 py-6 md:py-12">
+                <span className="text-2xl md:text-4xl mb-2 md:mb-4 block">📝</span>
+                <p className="text-sm md:text-lg">No notes found. Add your first note above!</p>
               </div>
             )}
           </div>
