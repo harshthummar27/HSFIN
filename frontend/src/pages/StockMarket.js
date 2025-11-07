@@ -101,10 +101,10 @@ const StockMarket = () => {
   const totalFund = initialBalance + totalProfitLoss;
 
   return (
-    <div className="p-2 md:p-6" style={{ backgroundColor: '#f8fafc', minHeight: '100vh' }}>
+    <div className="p-2 md:p-6" style={{ backgroundColor: '#f2f4f3', minHeight: '100vh' }}>
       {/* Page Header */}
       <div className="mb-3 md:mb-6">
-        <h1 className="text-lg md:text-3xl font-bold" style={{ color: '#003049' }}>Stock Market</h1>
+        <h1 className="text-lg md:text-3xl font-bold" style={{ color: '#0A0908' }}>Stock Market</h1>
         <p className="text-xs md:text-base text-gray-600 mt-0.5 md:mt-1">Track your stock market investments and profits</p>
       </div>
 
@@ -132,7 +132,7 @@ const StockMarket = () => {
         <h2 className="text-sm md:text-lg font-semibold text-gray-700 mb-2 md:mb-3">Set Initial Balance</h2>
         <form onSubmit={handleBalanceSubmit} className="flex gap-2 md:gap-3">
           <div className="flex-1">
-            <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1">Initial Balance</label>
+            <label className="block text-xs md:text-sm font-semibold mb-1 md:mb-2" style={{ color: '#0A0908' }}>Initial Balance</label>
             <input
               type="number"
               step="0.01"
@@ -140,7 +140,16 @@ const StockMarket = () => {
               onChange={(e) => setBalanceFormData({ initialBalance: e.target.value })}
               required
               placeholder="0.00"
-              className="w-full px-2 md:px-3 py-1.5 md:py-2 text-xs md:text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 md:px-4 py-2 md:py-2.5 text-xs md:text-sm border border-gray-200 rounded-lg focus:outline-none transition-all bg-white"
+              style={{ color: '#0A0908' }}
+              onFocus={(e) => {
+                e.currentTarget.style.borderColor = '#49111c';
+                e.currentTarget.style.boxShadow = '0 0 0 3px rgba(73, 17, 28, 0.1)';
+              }}
+              onBlur={(e) => {
+                e.currentTarget.style.borderColor = '#e5e7eb';
+                e.currentTarget.style.boxShadow = 'none';
+              }}
             />
           </div>
           <div className="flex items-end">
@@ -148,9 +157,9 @@ const StockMarket = () => {
               type="submit"
               disabled={balanceLoading}
               className="text-white text-xs md:text-sm font-semibold py-1.5 md:py-2 px-3 md:px-4 rounded-lg transition-all hover:scale-105 disabled:opacity-50 shadow-md"
-              style={{ backgroundColor: '#669bbc' }}
-              onMouseEnter={(e) => !balanceLoading && (e.currentTarget.style.backgroundColor = '#5588aa')}
-              onMouseLeave={(e) => !balanceLoading && (e.currentTarget.style.backgroundColor = '#669bbc')}
+              style={{ backgroundColor: '#49111c' }}
+              onMouseEnter={(e) => !balanceLoading && (e.currentTarget.style.backgroundColor = '#3a0d15')}
+              onMouseLeave={(e) => !balanceLoading && (e.currentTarget.style.backgroundColor = '#49111c')}
             >
               {balanceLoading ? 'Saving...' : 'Update Balance'}
             </button>
@@ -163,17 +172,26 @@ const StockMarket = () => {
         <h2 className="text-sm md:text-lg font-semibold text-gray-700 mb-2 md:mb-3">Add Profit/Loss Entry</h2>
         <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-4 gap-2 md:gap-3">
           <div>
-            <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1">Date</label>
+            <label className="block text-xs md:text-sm font-semibold mb-1 md:mb-2" style={{ color: '#0A0908' }}>Date</label>
             <input
               type="date"
               value={formData.date}
               onChange={(e) => setFormData({ ...formData, date: e.target.value })}
               required
-              className="w-full px-2 md:px-3 py-1.5 md:py-2 text-xs md:text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 md:px-4 py-2 md:py-2.5 text-xs md:text-sm border border-gray-200 rounded-lg focus:outline-none transition-all bg-white"
+              style={{ color: '#0A0908' }}
+              onFocus={(e) => {
+                e.currentTarget.style.borderColor = '#49111c';
+                e.currentTarget.style.boxShadow = '0 0 0 3px rgba(73, 17, 28, 0.1)';
+              }}
+              onBlur={(e) => {
+                e.currentTarget.style.borderColor = '#e5e7eb';
+                e.currentTarget.style.boxShadow = 'none';
+              }}
             />
           </div>
           <div>
-            <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1">Profit/Loss</label>
+            <label className="block text-xs md:text-sm font-semibold mb-1 md:mb-2" style={{ color: '#0A0908' }}>Profit/Loss</label>
             <input
               type="number"
               step="0.01"
@@ -181,18 +199,36 @@ const StockMarket = () => {
               onChange={(e) => setFormData({ ...formData, profitLoss: e.target.value })}
               required
               placeholder="+1000 or -500"
-              className="w-full px-2 md:px-3 py-1.5 md:py-2 text-xs md:text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 md:px-4 py-2 md:py-2.5 text-xs md:text-sm border border-gray-200 rounded-lg focus:outline-none transition-all bg-white"
+              style={{ color: '#0A0908' }}
+              onFocus={(e) => {
+                e.currentTarget.style.borderColor = '#49111c';
+                e.currentTarget.style.boxShadow = '0 0 0 3px rgba(73, 17, 28, 0.1)';
+              }}
+              onBlur={(e) => {
+                e.currentTarget.style.borderColor = '#e5e7eb';
+                e.currentTarget.style.boxShadow = 'none';
+              }}
             />
             <p className="text-xs text-gray-500 mt-1">Use + for profit, - for loss</p>
           </div>
           <div>
-            <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1">Note</label>
+            <label className="block text-xs md:text-sm font-semibold mb-1 md:mb-2" style={{ color: '#0A0908' }}>Note</label>
             <input
               type="text"
               value={formData.note}
               onChange={(e) => setFormData({ ...formData, note: e.target.value })}
               placeholder="Enter note"
-              className="w-full px-2 md:px-3 py-1.5 md:py-2 text-xs md:text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 md:px-4 py-2 md:py-2.5 text-xs md:text-sm border border-gray-200 rounded-lg focus:outline-none transition-all bg-white"
+              style={{ color: '#0A0908' }}
+              onFocus={(e) => {
+                e.currentTarget.style.borderColor = '#49111c';
+                e.currentTarget.style.boxShadow = '0 0 0 3px rgba(73, 17, 28, 0.1)';
+              }}
+              onBlur={(e) => {
+                e.currentTarget.style.borderColor = '#e5e7eb';
+                e.currentTarget.style.boxShadow = 'none';
+              }}
             />
           </div>
           <div className="flex items-end">
@@ -200,9 +236,9 @@ const StockMarket = () => {
               type="submit"
               disabled={loading}
               className="w-full text-white text-xs md:text-sm font-semibold py-1.5 md:py-2 px-3 md:px-4 rounded-lg transition-all hover:scale-105 disabled:opacity-50 shadow-md"
-              style={{ backgroundColor: '#669bbc' }}
-              onMouseEnter={(e) => !loading && (e.currentTarget.style.backgroundColor = '#5588aa')}
-              onMouseLeave={(e) => !loading && (e.currentTarget.style.backgroundColor = '#669bbc')}
+              style={{ backgroundColor: '#49111c' }}
+              onMouseEnter={(e) => !loading && (e.currentTarget.style.backgroundColor = '#3a0d15')}
+              onMouseLeave={(e) => !loading && (e.currentTarget.style.backgroundColor = '#49111c')}
             >
               {loading ? 'Saving...' : 'Save'}
             </button>
@@ -211,36 +247,39 @@ const StockMarket = () => {
       </div>
 
       {/* Table Section */}
-      <div className="bg-white rounded-lg md:rounded-xl shadow-md md:shadow-lg overflow-hidden">
-        <div className="p-3 md:p-4 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100">
-          <h2 className="text-sm md:text-lg font-bold text-gray-700">Profit/Loss Entries</h2>
+      <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+        <div className="px-4 md:px-6 py-4 border-b border-gray-200">
+          <h2 className="text-base md:text-lg font-bold" style={{ color: '#0A0908' }}>Profit/Loss Entries</h2>
         </div>
         <div className="overflow-x-auto">
           <table className="min-w-full">
             <thead>
-              <tr className="bg-gradient-to-r from-gray-50 to-gray-100">
-                <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-semibold text-gray-700 uppercase tracking-wider">Date</th>
-                <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-semibold text-gray-700 uppercase tracking-wider">Profit/Loss</th>
-                <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-semibold text-gray-700 uppercase tracking-wider">Note</th>
-                <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-semibold text-gray-700 uppercase tracking-wider">Actions</th>
+              <tr className="border-b border-gray-200 bg-gray-50">
+                <th className="px-4 md:px-6 py-3 text-left text-xs md:text-sm font-semibold uppercase tracking-wider" style={{ color: '#5e503f' }}>Date</th>
+                <th className="px-4 md:px-6 py-3 text-left text-xs md:text-sm font-semibold uppercase tracking-wider" style={{ color: '#5e503f' }}>Profit/Loss</th>
+                <th className="px-4 md:px-6 py-3 text-left text-xs md:text-sm font-semibold uppercase tracking-wider" style={{ color: '#5e503f' }}>Note</th>
+                <th className="px-4 md:px-6 py-3 text-left text-xs md:text-sm font-semibold uppercase tracking-wider" style={{ color: '#5e503f' }}>Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200">
+            <tbody className="divide-y divide-gray-100">
               {entries.map((entry) => (
                 <tr key={entry._id} className="hover:bg-gray-50 transition-colors">
-                  <td className="px-2 md:px-4 py-2 md:py-3 whitespace-nowrap text-xs md:text-sm text-gray-900">
+                  <td className="px-4 md:px-6 py-3 whitespace-nowrap text-sm" style={{ color: '#0A0908' }}>
                     {new Date(entry.date).toLocaleDateString()}
                   </td>
-                  <td className={`px-2 md:px-4 py-2 md:py-3 whitespace-nowrap text-xs md:text-sm font-semibold ${
+                  <td className={`px-4 md:px-6 py-3 whitespace-nowrap text-sm font-bold ${
                     (entry.profitLoss || 0) >= 0 ? 'text-green-600' : 'text-red-600'
                   }`}>
                     {(entry.profitLoss || 0) >= 0 ? '+' : ''}₹{(entry.profitLoss || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                   </td>
-                  <td className="px-2 md:px-4 py-2 md:py-3 text-xs md:text-sm text-gray-900">{entry.note || '-'}</td>
-                  <td className="px-2 md:px-4 py-2 md:py-3 whitespace-nowrap">
+                  <td className="px-4 md:px-6 py-3 text-sm" style={{ color: '#0A0908' }}>{entry.note || '-'}</td>
+                  <td className="px-4 md:px-6 py-3 whitespace-nowrap">
                     <button
                       onClick={() => handleDelete(entry._id)}
-                      className="text-red-600 hover:text-red-800 font-semibold text-xs md:text-sm transition-colors"
+                      className="px-3 py-1.5 text-xs md:text-sm font-medium rounded-lg transition-all hover:scale-105 text-white"
+                      style={{ backgroundColor: '#dc2626' }}
+                      onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#b91c1c'}
+                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#dc2626'}
                     >
                       Delete
                     </button>
@@ -249,7 +288,7 @@ const StockMarket = () => {
               ))}
               {entries.length === 0 && (
                 <tr>
-                  <td colSpan="4" className="px-2 md:px-4 py-4 md:py-8 text-center text-gray-500 text-xs md:text-sm">
+                  <td colSpan="4" className="px-4 md:px-6 py-8 md:py-12 text-center text-sm" style={{ color: '#5e503f' }}>
                     No profit/loss entries found. Add your first entry above.
                   </td>
                 </tr>

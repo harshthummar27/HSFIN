@@ -34,13 +34,13 @@ const TopNavbar = () => {
   return (
     <>
       <nav className="bg-white shadow-md fixed top-0 right-0 left-0 md:left-64 z-30">
-        <div className="px-2 md:px-6 py-2 md:py-3 flex justify-between items-center">
+        <div className="px-2 md:px-6 py-4 md:py-3 flex justify-between items-center">
           <div className="flex items-center space-x-2 md:space-x-3">
             {/* Mobile Menu Button - Animated Hamburger Icon */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="md:hidden relative w-8 h-8 md:w-10 md:h-10 flex flex-col justify-center items-center rounded-lg transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-              style={{ backgroundColor: '#003049' }}
+              style={{ backgroundColor: '#49111c' }}
               aria-label="Toggle menu"
               aria-expanded={isMobileMenuOpen}
             >
@@ -83,7 +83,7 @@ const TopNavbar = () => {
               />
               <div className="h-4 md:h-5 w-px bg-gray-300"></div>
             </div>
-            <h2 className="text-sm md:text-lg font-semibold" style={{ color: '#003049' }}>{getPageTitle()}</h2>
+            <h2 className="text-sm md:text-lg font-semibold" style={{ color: '#0A0908' }}>{getPageTitle()}</h2>
           </div>
           <div className="flex items-center space-x-2 md:space-x-4">
             <button
@@ -162,7 +162,7 @@ const TopNavbar = () => {
                       : 'text-gray-700 hover:text-gray-900'
                   }`}
                   style={location.pathname === item.path ? {
-                    backgroundColor: '#669bbc',
+                    backgroundColor: '#49111c',
                     borderRadius: '0.375rem',
                     marginLeft: '0.5rem',
                     marginRight: '0.5rem'
@@ -173,7 +173,7 @@ const TopNavbar = () => {
                   }}
                   onMouseEnter={(e) => {
                     if (location.pathname !== item.path) {
-                      e.currentTarget.style.backgroundColor = '#f3f4f6';
+                      e.currentTarget.style.backgroundColor = '#f2f4f3';
                     }
                   }}
                   onMouseLeave={(e) => {

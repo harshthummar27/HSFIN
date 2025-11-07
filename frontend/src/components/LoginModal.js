@@ -125,7 +125,7 @@ const LoginModal = ({ isOpen, onClose }) => {
 
         {/* Title */}
         <div className="text-center mb-5">
-          <h2 className="text-xl font-bold" style={{ color: '#003049' }}>Login</h2>
+          <h2 className="text-xl font-bold" style={{ color: '#0A0908' }}>Login</h2>
           <p className="text-sm text-gray-500 mt-1">Welcome back to HSfin</p>
         </div>
 
@@ -139,7 +139,7 @@ const LoginModal = ({ isOpen, onClose }) => {
           )}
 
           <div className="mb-4">
-            <label className="block text-xs font-semibold mb-1.5" style={{ color: '#003049' }}>
+            <label className="block text-xs font-semibold mb-1.5" style={{ color: '#0A0908' }}>
               Email
             </label>
             <div className="relative">
@@ -155,7 +155,7 @@ const LoginModal = ({ isOpen, onClose }) => {
                 }}
                 onFocus={(e) => {
                   if (!errors.email) {
-                    e.currentTarget.style.borderColor = '#669bbc';
+                    e.currentTarget.style.borderColor = '#49111c';
                   }
                 }}
                 onBlur={(e) => {
@@ -175,7 +175,7 @@ const LoginModal = ({ isOpen, onClose }) => {
           </div>
 
           <div className="mb-5">
-            <label className="block text-xs font-semibold mb-1.5" style={{ color: '#003049' }}>
+            <label className="block text-xs font-semibold mb-1.5" style={{ color: '#0A0908' }}>
               Password
             </label>
             <div className="relative">
@@ -189,7 +189,7 @@ const LoginModal = ({ isOpen, onClose }) => {
                 style={{ borderColor: errors.password ? '#fca5a5' : '#e5e7eb' }}
                 onFocus={(e) => {
                   if (!errors.password) {
-                    e.currentTarget.style.borderColor = '#669bbc';
+                    e.currentTarget.style.borderColor = '#49111c';
                   }
                 }}
                 onBlur={(e) => {
@@ -217,9 +217,9 @@ const LoginModal = ({ isOpen, onClose }) => {
             type="submit"
             disabled={loading || !email.trim() || !password}
             className="w-full text-white font-semibold py-2.5 px-4 rounded-lg transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 text-sm relative overflow-hidden group"
-            style={{ backgroundColor: '#669bbc' }}
-            onMouseEnter={(e) => !loading && !e.currentTarget.disabled && (e.currentTarget.style.backgroundColor = '#5588aa')}
-            onMouseLeave={(e) => !loading && (e.currentTarget.style.backgroundColor = '#669bbc')}
+            style={{ backgroundColor: '#49111c' }}
+            onMouseEnter={(e) => !loading && !e.currentTarget.disabled && (e.currentTarget.style.backgroundColor = '#3a0d15')}
+            onMouseLeave={(e) => !loading && (e.currentTarget.style.backgroundColor = '#49111c')}
           >
             <span className="relative z-10 flex items-center justify-center space-x-2">
               {loading ? (

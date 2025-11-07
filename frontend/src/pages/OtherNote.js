@@ -53,10 +53,10 @@ const OtherNote = () => {
   };
 
   return (
-    <div className="p-2 md:p-6" style={{ backgroundColor: '#f8fafc', minHeight: '100vh' }}>
+    <div className="p-2 md:p-6" style={{ backgroundColor: '#f2f4f3', minHeight: '100vh' }}>
       {/* Page Header */}
       <div className="mb-3 md:mb-6">
-        <h1 className="text-lg md:text-3xl font-bold" style={{ color: '#003049' }}>Other Notes</h1>
+        <h1 className="text-lg md:text-3xl font-bold" style={{ color: '#0A0908' }}>Other Notes</h1>
         <p className="text-xs md:text-base text-gray-600 mt-0.5 md:mt-1">Keep track of important notes and reminders</p>
       </div>
 
@@ -73,15 +73,24 @@ const OtherNote = () => {
             onChange={(e) => setNote(e.target.value)}
             placeholder="Enter your note"
             required
-            className="flex-1 px-3 md:px-4 py-2 text-sm md:text-base border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="flex-1 px-3 md:px-4 py-2 md:py-2.5 text-sm md:text-base border border-gray-200 rounded-lg focus:outline-none transition-all bg-white"
+            style={{ color: '#0A0908' }}
+            onFocus={(e) => {
+              e.currentTarget.style.borderColor = '#49111c';
+              e.currentTarget.style.boxShadow = '0 0 0 3px rgba(73, 17, 28, 0.1)';
+            }}
+            onBlur={(e) => {
+              e.currentTarget.style.borderColor = '#e5e7eb';
+              e.currentTarget.style.boxShadow = 'none';
+            }}
           />
           <button
             type="submit"
             disabled={loading}
             className="text-white text-sm md:text-base font-semibold py-2 px-4 md:px-6 rounded-lg transition-all hover:scale-105 disabled:opacity-50 shadow-md whitespace-nowrap"
-            style={{ backgroundColor: '#669bbc' }}
-            onMouseEnter={(e) => !loading && (e.currentTarget.style.backgroundColor = '#5588aa')}
-            onMouseLeave={(e) => !loading && (e.currentTarget.style.backgroundColor = '#669bbc')}
+            style={{ backgroundColor: '#49111c' }}
+            onMouseEnter={(e) => !loading && (e.currentTarget.style.backgroundColor = '#3a0d15')}
+            onMouseLeave={(e) => !loading && (e.currentTarget.style.backgroundColor = '#49111c')}
           >
             {loading ? 'Saving...' : 'Submit'}
           </button>

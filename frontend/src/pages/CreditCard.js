@@ -215,7 +215,16 @@ const CreditCard = () => {
                 }
               }
             }}
-            className="w-full px-2 md:px-3 py-1.5 md:py-2 text-xs md:text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 md:px-4 py-2 md:py-2.5 text-xs md:text-sm border border-gray-200 rounded-lg focus:outline-none transition-all bg-white"
+            style={{ color: '#0A0908' }}
+            onFocus={(e) => {
+              e.currentTarget.style.borderColor = '#49111c';
+              e.currentTarget.style.boxShadow = '0 0 0 3px rgba(73, 17, 28, 0.1)';
+            }}
+            onBlur={(e) => {
+              e.currentTarget.style.borderColor = '#e5e7eb';
+              e.currentTarget.style.boxShadow = 'none';
+            }}
           >
             <option value="">-- Select Card --</option>
             {cards.map((card) => (
@@ -228,18 +237,18 @@ const CreditCard = () => {
               <button
                 onClick={() => openLimitForm(selectedCard1)}
                 className="flex-1 text-white text-xs md:text-sm font-semibold py-1.5 md:py-2 px-3 md:px-4 rounded-lg transition-all hover:scale-105 shadow-md"
-                style={{ backgroundColor: '#669bbc' }}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#5588aa')}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#669bbc')}
+                style={{ backgroundColor: '#49111c' }}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#3a0d15')}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#49111c')}
               >
                 Set Limit
               </button>
               <button
                 onClick={() => openForm(selectedCard1)}
                 className="flex-1 text-white text-xs md:text-sm font-semibold py-1.5 md:py-2 px-3 md:px-4 rounded-lg transition-all hover:scale-105 shadow-md"
-                style={{ backgroundColor: '#669bbc' }}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#5588aa')}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#669bbc')}
+                style={{ backgroundColor: '#49111c' }}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#3a0d15')}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#49111c')}
               >
                 + Add Entry
               </button>
@@ -263,7 +272,16 @@ const CreditCard = () => {
                 }
               }
             }}
-            className="w-full px-2 md:px-3 py-1.5 md:py-2 text-xs md:text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 md:px-4 py-2 md:py-2.5 text-xs md:text-sm border border-gray-200 rounded-lg focus:outline-none transition-all bg-white"
+            style={{ color: '#0A0908' }}
+            onFocus={(e) => {
+              e.currentTarget.style.borderColor = '#49111c';
+              e.currentTarget.style.boxShadow = '0 0 0 3px rgba(73, 17, 28, 0.1)';
+            }}
+            onBlur={(e) => {
+              e.currentTarget.style.borderColor = '#e5e7eb';
+              e.currentTarget.style.boxShadow = 'none';
+            }}
           >
             <option value="">-- Select Card --</option>
             {cards.map((card) => (
@@ -276,18 +294,18 @@ const CreditCard = () => {
               <button
                 onClick={() => openLimitForm(selectedCard2)}
                 className="flex-1 text-white text-xs md:text-sm font-semibold py-1.5 md:py-2 px-3 md:px-4 rounded-lg transition-all hover:scale-105 shadow-md"
-                style={{ backgroundColor: '#669bbc' }}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#5588aa')}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#669bbc')}
+                style={{ backgroundColor: '#49111c' }}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#3a0d15')}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#49111c')}
               >
                 Set Limit
               </button>
               <button
                 onClick={() => openForm(selectedCard2)}
                 className="flex-1 text-white text-xs md:text-sm font-semibold py-1.5 md:py-2 px-3 md:px-4 rounded-lg transition-all hover:scale-105 shadow-md"
-                style={{ backgroundColor: '#669bbc' }}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#5588aa')}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#669bbc')}
+                style={{ backgroundColor: '#49111c' }}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#3a0d15')}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#49111c')}
               >
                 + Add Entry
               </button>
@@ -313,7 +331,7 @@ const CreditCard = () => {
           </div>
           <form onSubmit={handleLimitSubmit} className="flex gap-2 md:gap-3">
             <div className="flex-1">
-              <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1">Credit Limit</label>
+              <label className="block text-xs md:text-sm font-semibold mb-1 md:mb-2" style={{ color: '#0A0908' }}>Credit Limit</label>
               <input
                 type="number"
                 step="0.01"
@@ -321,7 +339,16 @@ const CreditCard = () => {
                 onChange={(e) => setLimitFormData({ limit: e.target.value })}
                 required
                 placeholder="0.00"
-                className="w-full px-2 md:px-3 py-1.5 md:py-2 text-xs md:text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 md:px-4 py-2 md:py-2.5 text-xs md:text-sm border border-gray-200 rounded-lg focus:outline-none transition-all bg-white"
+                style={{ color: '#0A0908' }}
+                onFocus={(e) => {
+                  e.currentTarget.style.borderColor = '#49111c';
+                  e.currentTarget.style.boxShadow = '0 0 0 3px rgba(73, 17, 28, 0.1)';
+                }}
+                onBlur={(e) => {
+                  e.currentTarget.style.borderColor = '#e5e7eb';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
               />
             </div>
             <div className="flex items-end">
@@ -329,9 +356,9 @@ const CreditCard = () => {
                 type="submit"
                 disabled={limitLoading}
                 className="text-white text-xs md:text-sm font-semibold py-1.5 md:py-2 px-3 md:px-4 rounded-lg transition-all hover:scale-105 disabled:opacity-50 shadow-md"
-                style={{ backgroundColor: '#669bbc' }}
-                onMouseEnter={(e) => !limitLoading && (e.currentTarget.style.backgroundColor = '#5588aa')}
-                onMouseLeave={(e) => !limitLoading && (e.currentTarget.style.backgroundColor = '#669bbc')}
+                style={{ backgroundColor: '#49111c' }}
+                onMouseEnter={(e) => !limitLoading && (e.currentTarget.style.backgroundColor = '#3a0d15')}
+                onMouseLeave={(e) => !limitLoading && (e.currentTarget.style.backgroundColor = '#49111c')}
               >
                 {limitLoading ? 'Saving...' : 'Update Limit'}
               </button>
@@ -357,28 +384,46 @@ const CreditCard = () => {
           </div>
           <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-5 gap-2 md:gap-3">
             <div>
-              <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1">Date</label>
+              <label className="block text-xs md:text-sm font-semibold mb-1 md:mb-2" style={{ color: '#0A0908' }}>Date</label>
               <input
                 type="date"
                 value={formData.date}
                 onChange={(e) => setFormData({ ...formData, date: e.target.value })}
                 required
-                className="w-full px-2 md:px-3 py-1.5 md:py-2 text-xs md:text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 md:px-4 py-2 md:py-2.5 text-xs md:text-sm border border-gray-200 rounded-lg focus:outline-none transition-all bg-white"
+                style={{ color: '#0A0908' }}
+                onFocus={(e) => {
+                  e.currentTarget.style.borderColor = '#49111c';
+                  e.currentTarget.style.boxShadow = '0 0 0 3px rgba(73, 17, 28, 0.1)';
+                }}
+                onBlur={(e) => {
+                  e.currentTarget.style.borderColor = '#e5e7eb';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
               />
             </div>
             <div>
-              <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1">Transaction Type</label>
+              <label className="block text-xs md:text-sm font-semibold mb-1 md:mb-2" style={{ color: '#0A0908' }}>Transaction Type</label>
               <select
                 value={formData.transactionType}
                 onChange={(e) => setFormData({ ...formData, transactionType: e.target.value })}
-                className="w-full px-2 md:px-3 py-1.5 md:py-2 text-xs md:text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 md:px-4 py-2 md:py-2.5 text-xs md:text-sm border border-gray-200 rounded-lg focus:outline-none transition-all bg-white"
+                style={{ color: '#0A0908' }}
+                onFocus={(e) => {
+                  e.currentTarget.style.borderColor = '#49111c';
+                  e.currentTarget.style.boxShadow = '0 0 0 3px rgba(73, 17, 28, 0.1)';
+                }}
+                onBlur={(e) => {
+                  e.currentTarget.style.borderColor = '#e5e7eb';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
               >
                 <option value="spent">Spent (-)</option>
                 <option value="payment">Payment (+)</option>
               </select>
             </div>
             <div>
-              <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1">Amount</label>
+              <label className="block text-xs md:text-sm font-semibold mb-1 md:mb-2" style={{ color: '#0A0908' }}>Amount</label>
               <input
                 type="number"
                 step="0.01"
@@ -386,17 +431,35 @@ const CreditCard = () => {
                 onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
                 required
                 placeholder="0.00"
-                className="w-full px-2 md:px-3 py-1.5 md:py-2 text-xs md:text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 md:px-4 py-2 md:py-2.5 text-xs md:text-sm border border-gray-200 rounded-lg focus:outline-none transition-all bg-white"
+                style={{ color: '#0A0908' }}
+                onFocus={(e) => {
+                  e.currentTarget.style.borderColor = '#49111c';
+                  e.currentTarget.style.boxShadow = '0 0 0 3px rgba(73, 17, 28, 0.1)';
+                }}
+                onBlur={(e) => {
+                  e.currentTarget.style.borderColor = '#e5e7eb';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
               />
             </div>
             <div>
-              <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1">Note</label>
+              <label className="block text-xs md:text-sm font-semibold mb-1 md:mb-2" style={{ color: '#0A0908' }}>Note</label>
               <input
                 type="text"
                 value={formData.note}
                 onChange={(e) => setFormData({ ...formData, note: e.target.value })}
                 placeholder="Enter note"
-                className="w-full px-2 md:px-3 py-1.5 md:py-2 text-xs md:text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 md:px-4 py-2 md:py-2.5 text-xs md:text-sm border border-gray-200 rounded-lg focus:outline-none transition-all bg-white"
+                style={{ color: '#0A0908' }}
+                onFocus={(e) => {
+                  e.currentTarget.style.borderColor = '#49111c';
+                  e.currentTarget.style.boxShadow = '0 0 0 3px rgba(73, 17, 28, 0.1)';
+                }}
+                onBlur={(e) => {
+                  e.currentTarget.style.borderColor = '#e5e7eb';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
               />
             </div>
             <div className="flex items-end gap-2">
@@ -404,9 +467,9 @@ const CreditCard = () => {
                 type="submit"
                 disabled={loading}
                 className="flex-1 text-white text-xs md:text-sm font-semibold py-1.5 md:py-2 px-3 md:px-4 rounded-lg transition-all hover:scale-105 disabled:opacity-50 shadow-md"
-                style={{ backgroundColor: '#669bbc' }}
-                onMouseEnter={(e) => !loading && (e.currentTarget.style.backgroundColor = '#5588aa')}
-                onMouseLeave={(e) => !loading && (e.currentTarget.style.backgroundColor = '#669bbc')}
+                style={{ backgroundColor: '#49111c' }}
+                onMouseEnter={(e) => !loading && (e.currentTarget.style.backgroundColor = '#3a0d15')}
+                onMouseLeave={(e) => !loading && (e.currentTarget.style.backgroundColor = '#49111c')}
               >
                 {loading ? 'Saving...' : 'Save'}
               </button>
@@ -454,36 +517,41 @@ const CreditCard = () => {
       </div>
 
       {/* Tables Section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
         {selectedCard1 && selectedCard1 !== 'new' && (
-          <div className="bg-white rounded-lg shadow-md overflow-hidden">
-            <div className="p-3 md:p-4 bg-gray-100 font-semibold text-gray-800 text-sm">{selectedCard1}</div>
+          <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+            <div className="px-4 md:px-6 py-4 border-b border-gray-200">
+              <h2 className="text-base md:text-lg font-bold" style={{ color: '#0A0908' }}>{selectedCard1}</h2>
+            </div>
             <div className="overflow-x-auto">
-              <table className="min-w-full text-xs md:text-sm">
-                <thead className="bg-gray-100">
-                  <tr>
-                    <th className="px-2 md:px-3 py-2 text-left font-medium text-gray-700 uppercase">Date</th>
-                    <th className="px-2 md:px-3 py-2 text-left font-medium text-gray-700 uppercase">Amount</th>
-                    <th className="px-2 md:px-3 py-2 text-left font-medium text-gray-700 uppercase">Note</th>
-                    <th className="px-2 md:px-3 py-2 text-left font-medium text-gray-700 uppercase">Actions</th>
+              <table className="min-w-full">
+                <thead>
+                  <tr className="border-b border-gray-200 bg-gray-50">
+                    <th className="px-4 md:px-6 py-3 text-left text-xs md:text-sm font-semibold uppercase tracking-wider" style={{ color: '#5e503f' }}>Date</th>
+                    <th className="px-4 md:px-6 py-3 text-left text-xs md:text-sm font-semibold uppercase tracking-wider" style={{ color: '#5e503f' }}>Amount</th>
+                    <th className="px-4 md:px-6 py-3 text-left text-xs md:text-sm font-semibold uppercase tracking-wider" style={{ color: '#5e503f' }}>Note</th>
+                    <th className="px-4 md:px-6 py-3 text-left text-xs md:text-sm font-semibold uppercase tracking-wider" style={{ color: '#5e503f' }}>Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200">
+                <tbody className="divide-y divide-gray-100">
                   {entries1.map((entry) => (
-                    <tr key={entry._id} className="hover:bg-gray-50">
-                      <td className="px-2 md:px-3 py-2 whitespace-nowrap text-gray-900">
+                    <tr key={entry._id} className="hover:bg-gray-50 transition-colors">
+                      <td className="px-4 md:px-6 py-3 whitespace-nowrap text-sm" style={{ color: '#0A0908' }}>
                         {new Date(entry.date).toLocaleDateString()}
                       </td>
-                      <td className={`px-2 md:px-3 py-2 whitespace-nowrap font-semibold ${
+                      <td className={`px-4 md:px-6 py-3 whitespace-nowrap text-sm font-bold ${
                         (entry.amount || 0) >= 0 ? 'text-green-600' : 'text-red-600'
                       }`}>
                         {(entry.amount || 0) >= 0 ? '+' : ''}₹{(entry.amount || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </td>
-                      <td className="px-2 md:px-3 py-2 text-gray-900">{entry.note || '-'}</td>
-                      <td className="px-2 md:px-3 py-2 whitespace-nowrap">
+                      <td className="px-4 md:px-6 py-3 text-sm" style={{ color: '#0A0908' }}>{entry.note || '-'}</td>
+                      <td className="px-4 md:px-6 py-3 whitespace-nowrap">
                         <button
                           onClick={() => handleDelete(entry._id, selectedCard1)}
-                          className="text-red-600 hover:text-red-800 font-medium text-xs md:text-sm"
+                          className="px-3 py-1.5 text-xs md:text-sm font-medium rounded-lg transition-all hover:scale-105 text-white"
+                          style={{ backgroundColor: '#dc2626' }}
+                          onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#b91c1c'}
+                          onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#dc2626'}
                         >
                           Delete
                         </button>
@@ -492,7 +560,7 @@ const CreditCard = () => {
                   ))}
                   {entries1.length === 0 && (
                     <tr>
-                      <td colSpan="4" className="px-2 md:px-3 py-3 text-center text-gray-500 text-xs md:text-sm">
+                      <td colSpan="4" className="px-4 md:px-6 py-8 md:py-12 text-center text-sm" style={{ color: '#5e503f' }}>
                         No entries found
                       </td>
                     </tr>
@@ -504,43 +572,48 @@ const CreditCard = () => {
         )}
 
         {selectedCard2 && selectedCard2 !== 'new' && (
-          <div className="bg-white rounded-lg shadow-md overflow-hidden">
-            <div className="p-3 md:p-4 bg-gray-100 font-semibold text-gray-800 text-sm">{selectedCard2}</div>
+          <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+            <div className="px-4 md:px-6 py-4 border-b border-gray-200">
+              <h2 className="text-base md:text-lg font-bold" style={{ color: '#0A0908' }}>{selectedCard2}</h2>
+            </div>
             <div className="overflow-x-auto">
-              <table className="min-w-full text-xs md:text-sm">
-                <thead className="bg-gray-100">
-                  <tr>
-                    <th className="px-2 md:px-3 py-2 text-left font-medium text-gray-700 uppercase">Date</th>
-                    <th className="px-2 md:px-3 py-2 text-left font-medium text-gray-700 uppercase">Amount</th>
-                    <th className="px-2 md:px-3 py-2 text-left font-medium text-gray-700 uppercase">Note</th>
-                    <th className="px-2 md:px-3 py-2 text-left font-medium text-gray-700 uppercase">Actions</th>
+              <table className="min-w-full">
+                <thead>
+                  <tr className="border-b border-gray-200 bg-gray-50">
+                    <th className="px-4 md:px-6 py-3 text-left text-xs md:text-sm font-semibold uppercase tracking-wider" style={{ color: '#5e503f' }}>Date</th>
+                    <th className="px-4 md:px-6 py-3 text-left text-xs md:text-sm font-semibold uppercase tracking-wider" style={{ color: '#5e503f' }}>Amount</th>
+                    <th className="px-4 md:px-6 py-3 text-left text-xs md:text-sm font-semibold uppercase tracking-wider" style={{ color: '#5e503f' }}>Note</th>
+                    <th className="px-4 md:px-6 py-3 text-left text-xs md:text-sm font-semibold uppercase tracking-wider" style={{ color: '#5e503f' }}>Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200">
+                <tbody className="divide-y divide-gray-100">
                   {entries2.map((entry) => (
-                    <tr key={entry._id} className="hover:bg-gray-50">
-                      <td className="px-2 md:px-3 py-2 whitespace-nowrap text-gray-900">
+                    <tr key={entry._id} className="hover:bg-gray-50 transition-colors">
+                      <td className="px-4 md:px-6 py-3 whitespace-nowrap text-sm" style={{ color: '#0A0908' }}>
                         {new Date(entry.date).toLocaleDateString()}
                       </td>
-                      <td className={`px-2 md:px-3 py-2 whitespace-nowrap font-semibold ${
+                      <td className={`px-4 md:px-6 py-3 whitespace-nowrap text-sm font-bold ${
                         (entry.amount || 0) >= 0 ? 'text-green-600' : 'text-red-600'
                       }`}>
                         {(entry.amount || 0) >= 0 ? '+' : ''}₹{(entry.amount || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </td>
-                      <td className="px-2 md:px-3 py-2 text-gray-900">{entry.note || '-'}</td>
-                      <td className="px-2 md:px-3 py-2 whitespace-nowrap">
+                      <td className="px-4 md:px-6 py-3 text-sm" style={{ color: '#0A0908' }}>{entry.note || '-'}</td>
+                      <td className="px-4 md:px-6 py-3 whitespace-nowrap">
                         <button
                           onClick={() => handleDelete(entry._id, selectedCard2)}
-                          className="text-red-600 hover:text-red-800 font-medium text-xs md:text-sm"
+                          className="px-3 py-1.5 text-xs md:text-sm font-medium rounded-lg transition-all hover:scale-105 text-white"
+                          style={{ backgroundColor: '#dc2626' }}
+                          onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#b91c1c'}
+                          onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#dc2626'}
                         >
                           Delete
                         </button>
-                  </td>
+                      </td>
                     </tr>
                   ))}
                   {entries2.length === 0 && (
                     <tr>
-                      <td colSpan="4" className="px-2 md:px-3 py-3 text-center text-gray-500 text-xs md:text-sm">
+                      <td colSpan="4" className="px-4 md:px-6 py-8 md:py-12 text-center text-sm" style={{ color: '#5e503f' }}>
                         No entries found
                       </td>
                     </tr>

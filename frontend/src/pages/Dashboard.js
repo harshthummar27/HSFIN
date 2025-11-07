@@ -51,10 +51,10 @@ const Dashboard = () => {
   const netBalance = summary.totalCreditPerson - summary.totalDebit - summary.totalDebitPerson;
 
   return (
-    <div className="p-2 md:p-6" style={{ backgroundColor: '#f8fafc', minHeight: '100vh' }}>
+    <div className="p-2 md:p-6" style={{ backgroundColor: '#f2f4f3', minHeight: '100vh' }}>
       {/* Page Header */}
       <div className="mb-3 md:mb-6">
-        <h1 className="text-lg md:text-3xl font-bold" style={{ color: '#003049' }}>Financial Overview</h1>
+        <h1 className="text-lg md:text-3xl font-bold" style={{ color: '#0A0908' }}>Financial Overview</h1>
         <p className="text-xs md:text-base text-gray-600 mt-0.5 md:mt-1">Complete summary of your finances</p>
       </div>
 
@@ -81,7 +81,7 @@ const Dashboard = () => {
           </div>
           <p className="text-2xl md:text-3xl font-bold text-red-500">₹{summary.totalDebitPerson.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
         </div>
-        <div className="bg-gradient-to-br from-white to-blue-50 p-3 md:p-5 rounded-lg md:rounded-xl shadow-md md:shadow-lg border-l-4 hover:shadow-lg md:hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1" style={{ borderLeftColor: '#669bbc' }}>
+        <div className="bg-gradient-to-br from-white to-blue-50 p-3 md:p-5 rounded-lg md:rounded-xl shadow-md md:shadow-lg border-l-4 hover:shadow-lg md:hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1" style={{ borderLeftColor: '#49111c' }}>
           <div className="flex items-center justify-between mb-2">
             <h3 className="text-gray-600 text-xs md:text-sm font-semibold uppercase tracking-wide">Net Balance</h3>
             <span className="text-lg md:text-2xl">💰</span>
@@ -134,24 +134,26 @@ const Dashboard = () => {
 
       {/* Loan Summary */}
       {summary.loanSummary.length > 0 && (
-        <div className="bg-white p-3 md:p-6 rounded-lg md:rounded-xl shadow-md md:shadow-lg mb-3 md:mb-6">
-          <div className="flex items-center mb-2 md:mb-4">
-            <span className="text-lg md:text-2xl mr-2 md:mr-3">🏦</span>
-            <h2 className="text-sm md:text-2xl font-bold" style={{ color: '#003049' }}>Loan Outstanding Summary - {}</h2>
+        <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-3 md:mb-6">
+          <div className="px-4 md:px-6 py-4 border-b border-gray-200">
+            <div className="flex items-center">
+              <span className="text-lg md:text-2xl mr-2 md:mr-3">🏦</span>
+              <h2 className="text-base md:text-lg font-bold" style={{ color: '#0A0908' }}>Loan Outstanding Summary</h2>
+            </div>
           </div>
           <div className="overflow-x-auto">
             <table className="min-w-full">
               <thead>
-                <tr className="bg-gradient-to-r from-gray-50 to-gray-100">
-                  <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-semibold text-gray-700 uppercase tracking-wider">Bank</th>
-                  <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-semibold text-gray-700 uppercase tracking-wider">Outstanding Amount</th>
+                <tr className="border-b border-gray-200 bg-gray-50">
+                  <th className="px-4 md:px-6 py-3 text-left text-xs md:text-sm font-semibold uppercase tracking-wider" style={{ color: '#5e503f' }}>Bank</th>
+                  <th className="px-4 md:px-6 py-3 text-left text-xs md:text-sm font-semibold uppercase tracking-wider" style={{ color: '#5e503f' }}>Outstanding Amount</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-200">
+              <tbody className="divide-y divide-gray-100">
                 {summary.loanSummary.map((loan, index) => (
                   <tr key={index} className="hover:bg-gray-50 transition-colors">
-                    <td className="px-2 md:px-4 py-2 md:py-3 text-xs md:text-sm font-medium text-gray-900">{loan._id}</td>
-                    <td className="px-2 md:px-4 py-2 md:py-3 text-xs md:text-sm font-bold text-purple-600">₹{loan.totalOutstanding.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                    <td className="px-4 md:px-6 py-3 text-sm font-medium" style={{ color: '#0A0908' }}>{loan._id}</td>
+                    <td className="px-4 md:px-6 py-3 text-sm font-bold text-purple-600">₹{loan.totalOutstanding.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                   </tr>
                 ))}
               </tbody>
@@ -162,28 +164,30 @@ const Dashboard = () => {
 
       {/* Credit Card Summary */}
       {summary.creditCardSummary.length > 0 && (
-        <div className="bg-white p-3 md:p-6 rounded-lg md:rounded-xl shadow-md md:shadow-lg mb-3 md:mb-6">
-          <div className="flex items-center mb-2 md:mb-4">
-            <span className="text-lg md:text-2xl mr-2 md:mr-3">💳</span>
-            <h2 className="text-sm md:text-2xl font-bold" style={{ color: '#003049' }}>Credit Card Summary</h2>
+        <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-3 md:mb-6">
+          <div className="px-4 md:px-6 py-4 border-b border-gray-200">
+            <div className="flex items-center">
+              <span className="text-lg md:text-2xl mr-2 md:mr-3">💳</span>
+              <h2 className="text-base md:text-lg font-bold" style={{ color: '#0A0908' }}>Credit Card Summary</h2>
+            </div>
           </div>
           <div className="overflow-x-auto">
             <table className="min-w-full">
               <thead>
-                <tr className="bg-gradient-to-r from-gray-50 to-gray-100">
-                  <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-semibold text-gray-700 uppercase tracking-wider">Card Name</th>
-                  <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-semibold text-gray-700 uppercase tracking-wider">Limit</th>
-                  <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-semibold text-gray-700 uppercase tracking-wider">totalOutstanding</th>
-                  <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-semibold text-gray-700 uppercase tracking-wider">Available Credit</th>
+                <tr className="border-b border-gray-200 bg-gray-50">
+                  <th className="px-4 md:px-6 py-3 text-left text-xs md:text-sm font-semibold uppercase tracking-wider" style={{ color: '#5e503f' }}>Card Name</th>
+                  <th className="px-4 md:px-6 py-3 text-left text-xs md:text-sm font-semibold uppercase tracking-wider" style={{ color: '#5e503f' }}>Limit</th>
+                  <th className="px-4 md:px-6 py-3 text-left text-xs md:text-sm font-semibold uppercase tracking-wider" style={{ color: '#5e503f' }}>Outstanding</th>
+                  <th className="px-4 md:px-6 py-3 text-left text-xs md:text-sm font-semibold uppercase tracking-wider" style={{ color: '#5e503f' }}>Available Credit</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-200">
+              <tbody className="divide-y divide-gray-100">
                 {summary.creditCardSummary.map((card, index) => (
                   <tr key={index} className="hover:bg-gray-50 transition-colors">
-                    <td className="px-2 md:px-4 py-2 md:py-3 text-xs md:text-sm font-medium text-gray-900">{card._id}</td>
-                    <td className="px-2 md:px-4 py-2 md:py-3 text-xs md:text-sm text-gray-700">₹{(card.limit || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                    <td className="px-2 md:px-4 py-2 md:py-3 text-xs md:text-sm font-bold text-purple-600">₹{(card.currentBalance || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                    <td className={`px-2 md:px-4 py-2 md:py-3 text-xs md:text-sm font-bold ${(card.availableCredit || 0) >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                    <td className="px-4 md:px-6 py-3 text-sm font-medium" style={{ color: '#0A0908' }}>{card._id}</td>
+                    <td className="px-4 md:px-6 py-3 text-sm" style={{ color: '#0A0908' }}>₹{(card.limit || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                    <td className="px-4 md:px-6 py-3 text-sm font-bold text-purple-600">₹{(card.currentBalance || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                    <td className={`px-4 md:px-6 py-3 text-sm font-bold ${(card.availableCredit || 0) >= 0 ? 'text-green-600' : 'text-red-600'}`}>
                       ₹{(card.availableCredit || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                     </td>
                   </tr>

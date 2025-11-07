@@ -40,7 +40,8 @@ function App() {
               path="/dashboard"
               element={
                 <PrivateRoute>
-                  <Dashboard />
+                    <Dashboard />
+                  
                 </PrivateRoute>
               }
             />
@@ -48,7 +49,9 @@ function App() {
               path="/daily-debit"
               element={
                 <PrivateRoute>
-                  <DailyDebit />
+                  
+                    <DailyDebit />
+                 
                 </PrivateRoute>
               }
             />
@@ -56,7 +59,9 @@ function App() {
               path="/loan"
               element={
                 <PrivateRoute>
-                  <Loan />
+                
+                    <Loan />
+              
                 </PrivateRoute>
               }
             />
@@ -64,7 +69,9 @@ function App() {
               path="/credit-card"
               element={
                 <PrivateRoute>
-                  <CreditCard />
+                 
+                    <CreditCard />
+                 
                 </PrivateRoute>
               }
             />
@@ -72,7 +79,9 @@ function App() {
               path="/credit-person"
               element={
                 <PrivateRoute>
-                  <CreditPerson />
+                  
+                    <CreditPerson />
+               
                 </PrivateRoute>
               }
             />
@@ -80,7 +89,9 @@ function App() {
               path="/debit-person"
               element={
                 <PrivateRoute>
-                  <DebitPerson />
+                
+                    <DebitPerson />
+                 
                 </PrivateRoute>
               }
             />
@@ -88,7 +99,9 @@ function App() {
               path="/other-note"
               element={
                 <PrivateRoute>
-                  <OtherNote />
+                 
+                    <OtherNote />
+                  
                 </PrivateRoute>
               }
             />
@@ -96,7 +109,9 @@ function App() {
               path="/rules"
               element={
                 <PrivateRoute>
-                  <Rules />
+                 
+                    <Rules />
+                  
                 </PrivateRoute>
               }
             />
@@ -104,7 +119,9 @@ function App() {
               path="/stock-market"
               element={
                 <PrivateRoute>
-                  <StockMarket />
+                 
+                    <StockMarket />
+             
                 </PrivateRoute>
               }
             />
@@ -112,7 +129,9 @@ function App() {
               path="/balance"
               element={
                 <PrivateRoute>
-                  <Balance />
+                  
+                    <Balance />
+                 
                 </PrivateRoute>
               }
             />

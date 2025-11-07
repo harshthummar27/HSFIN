@@ -68,10 +68,10 @@ const Loan = () => {
   }, 0);
 
   return (
-    <div className="p-2 md:p-6" style={{ backgroundColor: '#f8fafc', minHeight: '100vh' }}>
+    <div className="p-2 md:p-6" style={{ backgroundColor: '#f2f4f3', minHeight: '100vh' }}>
       {/* Page Header */}
       <div className="mb-3 md:mb-6">
-        <h1 className="text-lg md:text-3xl font-bold" style={{ color: '#003049' }}>Loan Management</h1>
+        <h1 className="text-lg md:text-3xl font-bold" style={{ color: '#0A0908' }}>Loan Management</h1>
         <p className="text-xs md:text-base text-gray-600 mt-0.5 md:mt-1">Track and manage your loan EMIs</p>
       </div>
 
@@ -91,9 +91,9 @@ const Loan = () => {
           <button
             onClick={() => setShowForm(true)}
             className="text-white text-xs md:text-sm font-semibold py-2 md:py-3 px-4 md:px-6 rounded-lg transition-all hover:scale-105 shadow-md md:shadow-lg flex items-center gap-2"
-            style={{ backgroundColor: '#669bbc' }}
-            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#5588aa')}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#669bbc')}
+            style={{ backgroundColor: '#49111c' }}
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#3a0d15')}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#49111c')}
           >
             <span className="text-lg md:text-xl">➕</span>
             <span>Create a Loan</span>
@@ -121,28 +121,46 @@ const Loan = () => {
             </div>
             <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-4 gap-2 md:gap-3">
               <div>
-                <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1">Bank Name</label>
+                <label className="block text-xs md:text-sm font-semibold mb-1 md:mb-2" style={{ color: '#0A0908' }}>Bank Name</label>
                 <input
                   type="text"
                   value={formData.bank}
                   onChange={(e) => setFormData({ ...formData, bank: e.target.value })}
                   required
                   placeholder="e.g., HDFC, Axis, SBI"
-                  className="w-full px-2 md:px-3 py-1.5 md:py-2 text-xs md:text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 md:px-4 py-2 md:py-2.5 text-xs md:text-sm border border-gray-200 rounded-lg focus:outline-none transition-all bg-white"
+                  style={{ color: '#0A0908' }}
+                  onFocus={(e) => {
+                    e.currentTarget.style.borderColor = '#49111c';
+                    e.currentTarget.style.boxShadow = '0 0 0 3px rgba(73, 17, 28, 0.1)';
+                  }}
+                  onBlur={(e) => {
+                    e.currentTarget.style.borderColor = '#e5e7eb';
+                    e.currentTarget.style.boxShadow = 'none';
+                  }}
                 />
               </div>
               <div>
-                <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1">Repayment Date (EMI)</label>
+                <label className="block text-xs md:text-sm font-semibold mb-1 md:mb-2" style={{ color: '#0A0908' }}>Repayment Date (EMI)</label>
                 <input
                   type="date"
                   value={formData.repaymentDate}
                   onChange={(e) => setFormData({ ...formData, repaymentDate: e.target.value })}
                   required
-                  className="w-full px-2 md:px-3 py-1.5 md:py-2 text-xs md:text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 md:px-4 py-2 md:py-2.5 text-xs md:text-sm border border-gray-200 rounded-lg focus:outline-none transition-all bg-white"
+                  style={{ color: '#0A0908' }}
+                  onFocus={(e) => {
+                    e.currentTarget.style.borderColor = '#49111c';
+                    e.currentTarget.style.boxShadow = '0 0 0 3px rgba(73, 17, 28, 0.1)';
+                  }}
+                  onBlur={(e) => {
+                    e.currentTarget.style.borderColor = '#e5e7eb';
+                    e.currentTarget.style.boxShadow = 'none';
+                  }}
                 />
               </div>
               <div>
-                <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1">Amount</label>
+                <label className="block text-xs md:text-sm font-semibold mb-1 md:mb-2" style={{ color: '#0A0908' }}>Amount</label>
                 <input
                   type="number"
                   step="0.01"
@@ -150,7 +168,16 @@ const Loan = () => {
                   onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
                   required
                   placeholder="0.00"
-                  className="w-full px-2 md:px-3 py-1.5 md:py-2 text-xs md:text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 md:px-4 py-2 md:py-2.5 text-xs md:text-sm border border-gray-200 rounded-lg focus:outline-none transition-all bg-white"
+                  style={{ color: '#0A0908' }}
+                  onFocus={(e) => {
+                    e.currentTarget.style.borderColor = '#49111c';
+                    e.currentTarget.style.boxShadow = '0 0 0 3px rgba(73, 17, 28, 0.1)';
+                  }}
+                  onBlur={(e) => {
+                    e.currentTarget.style.borderColor = '#e5e7eb';
+                    e.currentTarget.style.boxShadow = 'none';
+                  }}
                 />
               </div>
               <div className="flex items-end gap-2">
@@ -158,9 +185,9 @@ const Loan = () => {
                   type="submit"
                   disabled={loading}
                   className="flex-1 text-white text-xs md:text-sm font-semibold py-1.5 md:py-2 px-3 md:px-4 rounded-lg transition-all hover:scale-105 disabled:opacity-50 shadow-md"
-                  style={{ backgroundColor: '#669bbc' }}
-                  onMouseEnter={(e) => !loading && (e.currentTarget.style.backgroundColor = '#5588aa')}
-                  onMouseLeave={(e) => !loading && (e.currentTarget.style.backgroundColor = '#669bbc')}
+                  style={{ backgroundColor: '#49111c' }}
+                  onMouseEnter={(e) => !loading && (e.currentTarget.style.backgroundColor = '#3a0d15')}
+                  onMouseLeave={(e) => !loading && (e.currentTarget.style.backgroundColor = '#49111c')}
                 >
                   {loading ? 'Saving...' : 'Save'}
                 </button>
@@ -185,21 +212,21 @@ const Loan = () => {
       </div>
 
       {/* Table Section */}
-      <div className="bg-white rounded-lg md:rounded-xl shadow-md md:shadow-lg overflow-hidden">
-        <div className="p-3 md:p-4 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100">
-          <h2 className="text-sm md:text-lg font-bold text-gray-700">Loan Entries</h2>
+      <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+        <div className="px-4 md:px-6 py-4 border-b border-gray-200">
+          <h2 className="text-base md:text-lg font-bold" style={{ color: '#0A0908' }}>Loan Entries</h2>
         </div>
         <div className="overflow-x-auto">
           <table className="min-w-full">
             <thead>
-              <tr className="bg-gradient-to-r from-gray-50 to-gray-100">
-                <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-semibold text-gray-700 uppercase tracking-wider">Bank Name</th>
-                <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-semibold text-gray-700 uppercase tracking-wider">Repayment Date (EMI)</th>
-                <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-semibold text-gray-700 uppercase tracking-wider">Amount</th>
-                <th className="px-2 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-semibold text-gray-700 uppercase tracking-wider">Actions</th>
+              <tr className="border-b border-gray-200 bg-gray-50">
+                <th className="px-4 md:px-6 py-3 text-left text-xs md:text-sm font-semibold uppercase tracking-wider" style={{ color: '#5e503f' }}>Bank Name</th>
+                <th className="px-4 md:px-6 py-3 text-left text-xs md:text-sm font-semibold uppercase tracking-wider" style={{ color: '#5e503f' }}>Repayment Date (EMI)</th>
+                <th className="px-4 md:px-6 py-3 text-left text-xs md:text-sm font-semibold uppercase tracking-wider" style={{ color: '#5e503f' }}>Amount</th>
+                <th className="px-4 md:px-6 py-3 text-left text-xs md:text-sm font-semibold uppercase tracking-wider" style={{ color: '#5e503f' }}>Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200">
+            <tbody className="divide-y divide-gray-100">
               {loans.map((loan) => {
                 // Handle old data structure or missing fields
                 const amount = loan.amount || loan.outstandingAmount || 0;
@@ -223,24 +250,27 @@ const Loan = () => {
                 
                 return (
                   <tr key={loan._id} className={`hover:bg-gray-50 transition-colors ${isOverdue ? 'bg-red-50' : ''}`}>
-                    <td className="px-2 md:px-4 py-2 md:py-3 whitespace-nowrap text-xs md:text-sm font-medium text-gray-900">
+                    <td className="px-4 md:px-6 py-3 whitespace-nowrap text-sm font-medium" style={{ color: '#0A0908' }}>
                       {bankName}
                     </td>
-                    <td className="px-2 md:px-4 py-2 md:py-3 whitespace-nowrap text-xs md:text-sm text-gray-900">
+                    <td className="px-4 md:px-6 py-3 whitespace-nowrap text-sm" style={{ color: '#0A0908' }}>
                       <div>
                         {parsedDate ? parsedDate.toLocaleDateString() : 'N/A'}
                         {isOverdue && (
-                          <span className="ml-1 text-xs text-red-600 font-semibold">(Overdue)</span>
+                          <span className="ml-2 px-2 py-0.5 text-xs font-semibold rounded-full text-white" style={{ backgroundColor: '#dc2626' }}>Overdue</span>
                         )}
                       </div>
                     </td>
-                    <td className="px-2 md:px-4 py-2 md:py-3 whitespace-nowrap text-xs md:text-sm font-semibold text-purple-600">
+                    <td className="px-4 md:px-6 py-3 whitespace-nowrap text-sm font-bold text-purple-600">
                       ₹{(amount || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                     </td>
-                    <td className="px-2 md:px-4 py-2 md:py-3 whitespace-nowrap">
+                    <td className="px-4 md:px-6 py-3 whitespace-nowrap">
                       <button
                         onClick={() => handleEMIPaid(loan._id)}
-                        className="bg-green-600 hover:bg-green-700 text-white text-xs md:text-sm font-semibold py-1 md:py-1.5 px-2 md:px-3 rounded-lg transition-colors"
+                        className="px-3 py-1.5 text-xs md:text-sm font-medium rounded-lg transition-all hover:scale-105 text-white"
+                        style={{ backgroundColor: '#10b981' }}
+                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#059669'}
+                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#10b981'}
                       >
                         EMI Paid
                       </button>
@@ -250,7 +280,7 @@ const Loan = () => {
               })}
               {loans.length === 0 && (
                 <tr>
-                  <td colSpan="4" className="px-2 md:px-4 py-4 md:py-8 text-center text-gray-500 text-xs md:text-sm">
+                  <td colSpan="4" className="px-4 md:px-6 py-8 md:py-12 text-center text-sm" style={{ color: '#5e503f' }}>
                     No loan entries found. Click "Create a Loan" to add your first loan.
                   </td>
                 </tr>

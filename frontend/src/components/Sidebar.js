@@ -24,7 +24,7 @@ const Sidebar = () => {
       <div
         className="hidden md:block fixed left-0 top-0 h-full w-64 bg-white shadow-md z-40"
       >
-        <div className="px-2 md:px-4 py-3 md:py-5 border-b border-gray-200 bg-gradient-to-br from-white to-gray-50">
+        <div className="px-2 md:px-1 py-3 md:py-0.5 border-b border-gray-200 bg-gradient-to-br from-white to-gray-50">
           <div className="flex items-center justify-center">
             <img 
               src={logo} 
@@ -45,7 +45,7 @@ const Sidebar = () => {
                   : 'text-gray-700 hover:text-gray-900'
               }`}
               style={location.pathname === item.path ? {
-                backgroundColor: '#669bbc',
+                backgroundColor: '#49111c',
                 borderRadius: '0.375rem',
                 marginLeft: '0.5rem',
                 marginRight: '0.5rem'
@@ -56,7 +56,7 @@ const Sidebar = () => {
               }}
               onMouseEnter={(e) => {
                 if (location.pathname !== item.path) {
-                  e.currentTarget.style.backgroundColor = '#f3f4f6';
+                  e.currentTarget.style.backgroundColor = '#f2f4f3';
                 }
               }}
               onMouseLeave={(e) => {
