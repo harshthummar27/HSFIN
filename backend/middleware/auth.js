@@ -47,6 +47,14 @@ const auth = (req, res, next) => {
 
     // Verify token with JWT_SECRET
     const decoded = jwt.verify(token, JWT_SECRET);
+    
+    // Ensure userId is present (required for user-scoped data access)
+    if (!decoded.userId) {
+      return res.status(401).json({ 
+        message: 'Invalid token - userId missing. Please login again.' 
+      });
+    }
+    
     req.user = decoded;
     next();
   } catch (error) {

@@ -4,9 +4,6 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 
-// Fixed credentials (in production, these should be in environment variables)
-const FIXED_EMAIL = process.env.EMAIL;
-const FIXED_PASSWORD = process.env.PASSWORD;
 
 // Register endpoint
 router.post('/register', async (req, res) => {
@@ -97,22 +94,6 @@ router.post('/login', async (req, res) => {
           name: user.name,
           email: user.email
         }
-      });
-    }
-
-    // Fallback to fixed credentials (for backward compatibility)
-    if (email === FIXED_EMAIL && password === FIXED_PASSWORD) {
-      const JWT_SECRET = process.env.JWT_SECRET || 'your_super_secret_jwt_key';
-      const token = jwt.sign(
-        { email: FIXED_EMAIL },
-        JWT_SECRET,
-        { expiresIn: '7d' }
-      );
-
-      return res.json({
-        success: true,
-        token,
-        user: { email: FIXED_EMAIL }
       });
     }
 

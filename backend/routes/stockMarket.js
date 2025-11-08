@@ -8,6 +8,7 @@ router.get('/', auth, async (req, res) => {
   try {
     // Get only profit/loss entries (exclude balance entries)
     const entries = await StockMarket.find({ 
+      userId: req.user.userId,
       profitLoss: { $exists: true, $ne: null, $ne: undefined } 
     }).sort({ date: -1 });
     res.json(entries);
@@ -20,6 +21,7 @@ router.get('/', auth, async (req, res) => {
 router.get('/balance', auth, async (req, res) => {
   try {
     const balance = await StockMarket.findOne({ 
+      userId: req.user.userId,
       initialBalance: { $exists: true, $ne: null, $ne: undefined } 
     }).sort({ createdAt: -1 });
     res.json({ initialBalance: balance?.initialBalance || 0 });
@@ -38,6 +40,7 @@ router.post('/', auth, async (req, res) => {
     }
     
     const entry = new StockMarket({ 
+      userId: req.user.userId,
       date, 
       profitLoss: parseFloat(profitLoss), 
       note: note || '' 
@@ -61,8 +64,12 @@ router.put('/balance', auth, async (req, res) => {
     
     // Find and update existing balance entry, or create new one
     const balance = await StockMarket.findOneAndUpdate(
-      { initialBalance: { $exists: true, $ne: null, $ne: undefined } },
       { 
+        userId: req.user.userId,
+        initialBalance: { $exists: true, $ne: null, $ne: undefined } 
+      },
+      { 
+        userId: req.user.userId,
         initialBalance: parseFloat(initialBalance), 
         date: new Date(), 
         note: 'Initial Balance',
@@ -81,8 +88,8 @@ router.put('/balance', auth, async (req, res) => {
 router.put('/:id', auth, async (req, res) => {
   try {
     const { date, profitLoss, note } = req.body;
-    const entry = await StockMarket.findByIdAndUpdate(
-      req.params.id,
+    const entry = await StockMarket.findOneAndUpdate(
+      { _id: req.params.id, userId: req.user.userId },
       { date, profitLoss: parseFloat(profitLoss), note },
       { new: true }
     );
@@ -98,7 +105,10 @@ router.put('/:id', auth, async (req, res) => {
 // Delete stock market entry
 router.delete('/:id', auth, async (req, res) => {
   try {
-    const entry = await StockMarket.findByIdAndDelete(req.params.id);
+    const entry = await StockMarket.findOneAndDelete({ 
+      _id: req.params.id, 
+      userId: req.user.userId 
+    });
     if (!entry) {
       return res.status(404).json({ message: 'Entry not found' });
     }

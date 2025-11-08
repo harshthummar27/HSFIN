@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 const auth = require('../middleware/auth');
 const Debit = require('../models/Debit');
 const CreditPerson = require('../models/CreditPerson');
@@ -17,29 +18,36 @@ router.get('/test', (req, res) => {
 // Get dashboard summary
 router.get('/summary', auth, async (req, res) => {
   console.log('Dashboard summary route hit');
+  const userId = req.user.userId;
+  
   try {
     // Calculate total debit (Daily Debit)
     const totalDebit = await Debit.aggregate([
+      { $match: { userId: new mongoose.Types.ObjectId(userId) } },
       { $group: { _id: null, total: { $sum: '$rupees' } } }
     ]);
     
     // Calculate total credit (Credit Person)
     const totalCredit = await CreditPerson.aggregate([
+      { $match: { userId: new mongoose.Types.ObjectId(userId) } },
       { $group: { _id: null, total: { $sum: '$rupees' } } }
     ]);
 
     // Calculate total debit person
     const totalDebitPerson = await DebitPerson.aggregate([
+      { $match: { userId: new mongoose.Types.ObjectId(userId) } },
       { $group: { _id: null, total: { $sum: '$rupees' } } }
     ]);
 
     // Calculate total credit person
     const totalCreditPerson = await CreditPerson.aggregate([
+      { $match: { userId: new mongoose.Types.ObjectId(userId) } },
       { $group: { _id: null, total: { $sum: '$rupees' } } }
     ]);
 
     // Calculate loan outstanding
     const loanSummary = await Loan.aggregate([
+      { $match: { userId: new mongoose.Types.ObjectId(userId) } },
       { $group: { _id: '$bank', totalOutstanding: { $sum: '$amount' } } }
     ]);
 
@@ -47,6 +55,7 @@ router.get('/summary', auth, async (req, res) => {
     const creditCardSummary = await CreditCard.aggregate([
       {
         $match: {
+          userId: new mongoose.Types.ObjectId(userId),
           amount: { $exists: true, $ne: null, $ne: undefined }
         }
       },
@@ -70,6 +79,7 @@ router.get('/summary', auth, async (req, res) => {
     // Add limit and available credit for each card
     for (let card of creditCardSummary) {
       const limitEntry = await CreditCard.findOne({
+        userId: userId,
         cardName: card._id,
         limit: { $exists: true, $ne: null, $ne: undefined }
       }).sort({ createdAt: -1 });
@@ -81,10 +91,12 @@ router.get('/summary', auth, async (req, res) => {
 
     // Calculate Stock Market summary
     const stockMarketInitial = await StockMarket.findOne({
+      userId: userId,
       initialBalance: { $exists: true, $ne: null, $ne: undefined }
     }).sort({ createdAt: -1 });
 
     const stockMarketTransactions = await StockMarket.find({
+      userId: userId,
       profitLoss: { $exists: true, $ne: null, $ne: undefined }
     });
 
@@ -93,6 +105,7 @@ router.get('/summary', auth, async (req, res) => {
 
     // Calculate Balance summary
     const balanceInitial = await Balance.findOne({
+      userId: userId,
       $or: [
         { initialCashBalance: { $exists: true, $ne: null } },
         { initialAccountBalance: { $exists: true, $ne: null } }
@@ -100,6 +113,7 @@ router.get('/summary', auth, async (req, res) => {
     }).sort({ createdAt: -1 });
 
     const balanceTransactions = await Balance.find({
+      userId: userId,
       $or: [
         { cashAmount: { $exists: true, $ne: null } },
         { accountAmount: { $exists: true, $ne: null } }

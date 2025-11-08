@@ -6,7 +6,7 @@ const CreditPerson = require('../models/CreditPerson');
 // Get all credit person entries
 router.get('/', auth, async (req, res) => {
   try {
-    const entries = await CreditPerson.find().sort({ date: -1 });
+    const entries = await CreditPerson.find({ userId: req.user.userId }).sort({ date: -1 });
     res.json(entries);
   } catch (error) {
     res.status(500).json({ message: 'Server error', error: error.message });
@@ -17,7 +17,7 @@ router.get('/', auth, async (req, res) => {
 router.post('/', auth, async (req, res) => {
   try {
     const { date, rupees, note } = req.body;
-    const entry = new CreditPerson({ date, rupees, note });
+    const entry = new CreditPerson({ userId: req.user.userId, date, rupees, note });
     await entry.save();
     res.status(201).json({ message: 'Credit person entry created successfully', entry });
   } catch (error) {
@@ -29,8 +29,8 @@ router.post('/', auth, async (req, res) => {
 router.put('/:id', auth, async (req, res) => {
   try {
     const { date, rupees, note } = req.body;
-    const entry = await CreditPerson.findByIdAndUpdate(
-      req.params.id,
+    const entry = await CreditPerson.findOneAndUpdate(
+      { _id: req.params.id, userId: req.user.userId },
       { date, rupees, note },
       { new: true }
     );
@@ -46,7 +46,10 @@ router.put('/:id', auth, async (req, res) => {
 // Delete credit person entry
 router.delete('/:id', auth, async (req, res) => {
   try {
-    const entry = await CreditPerson.findByIdAndDelete(req.params.id);
+    const entry = await CreditPerson.findOneAndDelete({ 
+      _id: req.params.id, 
+      userId: req.user.userId 
+    });
     if (!entry) {
       return res.status(404).json({ message: 'Credit person entry not found' });
     }

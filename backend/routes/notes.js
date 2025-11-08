@@ -6,7 +6,7 @@ const Note = require('../models/Note');
 // Get all notes
 router.get('/', auth, async (req, res) => {
   try {
-    const notes = await Note.find().sort({ createdAt: -1 });
+    const notes = await Note.find({ userId: req.user.userId }).sort({ createdAt: -1 });
     res.json(notes);
   } catch (error) {
     res.status(500).json({ message: 'Server error', error: error.message });
@@ -17,7 +17,7 @@ router.get('/', auth, async (req, res) => {
 router.post('/', auth, async (req, res) => {
   try {
     const { note } = req.body;
-    const newNote = new Note({ note });
+    const newNote = new Note({ userId: req.user.userId, note });
     await newNote.save();
     res.status(201).json({ message: 'Note created successfully', note: newNote });
   } catch (error) {
@@ -29,8 +29,8 @@ router.post('/', auth, async (req, res) => {
 router.put('/:id', auth, async (req, res) => {
   try {
     const { note } = req.body;
-    const updatedNote = await Note.findByIdAndUpdate(
-      req.params.id,
+    const updatedNote = await Note.findOneAndUpdate(
+      { _id: req.params.id, userId: req.user.userId },
       { note },
       { new: true }
     );
@@ -46,7 +46,10 @@ router.put('/:id', auth, async (req, res) => {
 // Delete note
 router.delete('/:id', auth, async (req, res) => {
   try {
-    const note = await Note.findByIdAndDelete(req.params.id);
+    const note = await Note.findOneAndDelete({ 
+      _id: req.params.id, 
+      userId: req.user.userId 
+    });
     if (!note) {
       return res.status(404).json({ message: 'Note not found' });
     }

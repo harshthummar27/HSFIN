@@ -7,6 +7,7 @@ const Balance = require('../models/Balance');
 router.get('/initial', auth, async (req, res) => {
   try {
     const balance = await Balance.findOne({
+      userId: req.user.userId,
       $or: [
         { initialCashBalance: { $exists: true, $ne: null } },
         { initialAccountBalance: { $exists: true, $ne: null } }
@@ -26,6 +27,7 @@ router.get('/initial', auth, async (req, res) => {
 router.get('/', auth, async (req, res) => {
   try {
     const transactions = await Balance.find({
+      userId: req.user.userId,
       $or: [
         { cashAmount: { $exists: true, $ne: null } },
         { accountAmount: { $exists: true, $ne: null } }
@@ -60,8 +62,10 @@ router.put('/initial', auth, async (req, res) => {
     }
     
     // Find and update existing initial balance, or create new
+    balanceData.userId = req.user.userId;
     const balance = await Balance.findOneAndUpdate(
       {
+        userId: req.user.userId,
         $or: [
           { initialCashBalance: { $exists: true, $ne: null } },
           { initialAccountBalance: { $exists: true, $ne: null } }
@@ -99,6 +103,7 @@ router.post('/', auth, async (req, res) => {
       transactionData.accountAmount = parseFloat(accountAmount);
     }
     
+    transactionData.userId = req.user.userId;
     const transaction = new Balance(transactionData);
     await transaction.save();
     
@@ -111,7 +116,10 @@ router.post('/', auth, async (req, res) => {
 // Delete transaction entry
 router.delete('/:id', auth, async (req, res) => {
   try {
-    const entry = await Balance.findByIdAndDelete(req.params.id);
+    const entry = await Balance.findOneAndDelete({ 
+      _id: req.params.id, 
+      userId: req.user.userId 
+    });
     if (!entry) {
       return res.status(404).json({ message: 'Entry not found' });
     }

@@ -6,7 +6,7 @@ const Rule = require('../models/Rule');
 // Get all rules
 router.get('/', auth, async (req, res) => {
   try {
-    const rules = await Rule.find().sort({ date: -1 });
+    const rules = await Rule.find({ userId: req.user.userId }).sort({ date: -1 });
     res.json(rules);
   } catch (error) {
     res.status(500).json({ message: 'Server error', error: error.message });
@@ -17,7 +17,7 @@ router.get('/', auth, async (req, res) => {
 router.post('/', auth, async (req, res) => {
   try {
     const { date, note } = req.body;
-    const rule = new Rule({ date, note });
+    const rule = new Rule({ userId: req.user.userId, date, note });
     await rule.save();
     res.status(201).json({ message: 'Rule created successfully', rule });
   } catch (error) {
@@ -29,8 +29,8 @@ router.post('/', auth, async (req, res) => {
 router.put('/:id', auth, async (req, res) => {
   try {
     const { date, note } = req.body;
-    const rule = await Rule.findByIdAndUpdate(
-      req.params.id,
+    const rule = await Rule.findOneAndUpdate(
+      { _id: req.params.id, userId: req.user.userId },
       { date, note },
       { new: true }
     );
@@ -46,7 +46,10 @@ router.put('/:id', auth, async (req, res) => {
 // Delete rule
 router.delete('/:id', auth, async (req, res) => {
   try {
-    const rule = await Rule.findByIdAndDelete(req.params.id);
+    const rule = await Rule.findOneAndDelete({ 
+      _id: req.params.id, 
+      userId: req.user.userId 
+    });
     if (!rule) {
       return res.status(404).json({ message: 'Rule not found' });
     }

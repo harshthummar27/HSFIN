@@ -1,6 +1,12 @@
 const mongoose = require('mongoose');
 
 const balanceSchema = new mongoose.Schema({
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+    index: true
+  },
   // For initial balance entries
   initialCashBalance: {
     type: Number,

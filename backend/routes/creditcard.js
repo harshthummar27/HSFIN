@@ -7,6 +7,7 @@ const CreditCard = require('../models/CreditCard');
 router.get('/', auth, async (req, res) => {
   try {
     const transactions = await CreditCard.find({
+      userId: req.user.userId,
       amount: { $exists: true, $ne: null, $ne: undefined }
     }).sort({ date: -1 });
     res.json(transactions);
@@ -18,7 +19,7 @@ router.get('/', auth, async (req, res) => {
 // Get distinct card names
 router.get('/cards', auth, async (req, res) => {
   try {
-    const cards = await CreditCard.distinct('cardName');
+    const cards = await CreditCard.distinct('cardName', { userId: req.user.userId });
     res.json(cards);
   } catch (error) {
     res.status(500).json({ message: 'Server error', error: error.message });
@@ -29,6 +30,7 @@ router.get('/cards', auth, async (req, res) => {
 router.get('/limit/:cardName', auth, async (req, res) => {
   try {
     const limit = await CreditCard.findOne({
+      userId: req.user.userId,
       cardName: req.params.cardName,
       limit: { $exists: true, $ne: null, $ne: undefined }
     }).sort({ createdAt: -1 });
@@ -42,6 +44,7 @@ router.get('/limit/:cardName', auth, async (req, res) => {
 router.get('/card/:cardName', auth, async (req, res) => {
   try {
     const transactions = await CreditCard.find({
+      userId: req.user.userId,
       cardName: req.params.cardName,
       amount: { $exists: true, $ne: null, $ne: undefined }
     }).sort({ date: -1 });
@@ -61,8 +64,13 @@ router.put('/limit/:cardName', auth, async (req, res) => {
     }
     
     const limitEntry = await CreditCard.findOneAndUpdate(
-      { cardName: req.params.cardName, limit: { $exists: true, $ne: null, $ne: undefined } },
       { 
+        userId: req.user.userId,
+        cardName: req.params.cardName, 
+        limit: { $exists: true, $ne: null, $ne: undefined } 
+      },
+      { 
+        userId: req.user.userId,
         cardName: req.params.cardName,
         limit: parseFloat(limit),
         date: new Date(),
@@ -91,6 +99,7 @@ router.post('/', auth, async (req, res) => {
     // For payment entries, amount should be positive
     // User enters positive for spend, we'll store as negative
     const transaction = new CreditCard({
+      userId: req.user.userId,
       cardName,
       date: date ? new Date(date) : new Date(),
       amount: parseFloat(amount), // Store as entered (positive for payment, negative for spend)
@@ -108,8 +117,8 @@ router.post('/', auth, async (req, res) => {
 router.put('/:id', auth, async (req, res) => {
   try {
     const { date, amount, note } = req.body;
-    const entry = await CreditCard.findByIdAndUpdate(
-      req.params.id,
+    const entry = await CreditCard.findOneAndUpdate(
+      { _id: req.params.id, userId: req.user.userId },
       { date, amount: parseFloat(amount), note },
       { new: true }
     );
@@ -125,7 +134,10 @@ router.put('/:id', auth, async (req, res) => {
 // Delete entry
 router.delete('/:id', auth, async (req, res) => {
   try {
-    const entry = await CreditCard.findByIdAndDelete(req.params.id);
+    const entry = await CreditCard.findOneAndDelete({ 
+      _id: req.params.id, 
+      userId: req.user.userId 
+    });
     if (!entry) {
       return res.status(404).json({ message: 'Entry not found' });
     }

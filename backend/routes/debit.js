@@ -6,7 +6,7 @@ const Debit = require('../models/Debit');
 // Get all debit entries
 router.get('/', auth, async (req, res) => {
   try {
-    const debits = await Debit.find().sort({ date: -1 });
+    const debits = await Debit.find({ userId: req.user.userId }).sort({ date: -1 });
     res.json(debits);
   } catch (error) {
     res.status(500).json({ message: 'Server error', error: error.message });
@@ -17,7 +17,7 @@ router.get('/', auth, async (req, res) => {
 router.post('/', auth, async (req, res) => {
   try {
     const { date, rupees, note } = req.body;
-    const debit = new Debit({ date, rupees, note });
+    const debit = new Debit({ userId: req.user.userId, date, rupees, note });
     await debit.save();
     res.status(201).json({ message: 'Debit entry created successfully', debit });
   } catch (error) {
@@ -29,8 +29,8 @@ router.post('/', auth, async (req, res) => {
 router.put('/:id', auth, async (req, res) => {
   try {
     const { date, rupees, note } = req.body;
-    const debit = await Debit.findByIdAndUpdate(
-      req.params.id,
+    const debit = await Debit.findOneAndUpdate(
+      { _id: req.params.id, userId: req.user.userId },
       { date, rupees, note },
       { new: true }
     );
@@ -46,7 +46,10 @@ router.put('/:id', auth, async (req, res) => {
 // Delete debit entry
 router.delete('/:id', auth, async (req, res) => {
   try {
-    const debit = await Debit.findByIdAndDelete(req.params.id);
+    const debit = await Debit.findOneAndDelete({ 
+      _id: req.params.id, 
+      userId: req.user.userId 
+    });
     if (!debit) {
       return res.status(404).json({ message: 'Debit entry not found' });
     }

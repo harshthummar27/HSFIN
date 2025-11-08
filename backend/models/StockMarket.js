@@ -1,6 +1,12 @@
 const mongoose = require('mongoose');
 
 const stockMarketSchema = new mongoose.Schema({
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+    index: true
+  },
   initialBalance: {
     type: Number,
     default: 0
