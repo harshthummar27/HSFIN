@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import LoginModal from '../components/LoginModal';
+import RegisterModal from '../components/RegisterModal';
 import Footer from '../components/Footer';
 import logo from '../assets/HSFIN.png';
 
 const Home = () => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const sliderRef = useRef(null);
@@ -73,16 +75,28 @@ const Home = () => {
             <div className="hidden md:block h-6 w-px bg-gray-300 mx-1"></div>
             <span className="hidden md:block text-base font-semibold" style={{ color: '#0A0908' }}>@Harsh.Patel</span>
           </div>
-          <button
-            onClick={() => setIsLoginModalOpen(true)}
-            className="text-white px-3 md:px-4 py-1.5 rounded-lg transition-all hover:scale-105 shadow-md text-sm font-semibold relative overflow-hidden group"
-            style={{ backgroundColor: '#49111c' }}
-            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#3a0d15'}
-            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#49111c'}
-          >
-            <span className="relative z-10">Login</span>
-            <span className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></span>
-          </button>
+          <div className="flex items-center space-x-2 md:space-x-3">
+            <button
+              onClick={() => setIsRegisterModalOpen(true)}
+              className="text-white px-3 md:px-4 py-1.5 rounded-lg transition-all hover:scale-105 shadow-md text-sm font-semibold relative overflow-hidden group"
+              style={{ backgroundColor: '#5e503f' }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#4a3f32'}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#5e503f'}
+            >
+              <span className="relative z-10">Register</span>
+              <span className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></span>
+            </button>
+            <button
+              onClick={() => setIsLoginModalOpen(true)}
+              className="text-white px-3 md:px-4 py-1.5 rounded-lg transition-all hover:scale-105 shadow-md text-sm font-semibold relative overflow-hidden group"
+              style={{ backgroundColor: '#49111c' }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#3a0d15'}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#49111c'}
+            >
+              <span className="relative z-10">Login</span>
+              <span className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></span>
+            </button>
+          </div>
         </div>
       </nav>
 
@@ -143,7 +157,7 @@ const Home = () => {
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-3">
                 <button
-                  onClick={() => setIsLoginModalOpen(true)}
+                  onClick={() => setIsRegisterModalOpen(true)}
                   className="text-white px-6 py-2.5 rounded-lg text-sm md:text-base font-semibold transition-all hover:scale-105 relative overflow-hidden group"
                   style={{ backgroundColor: '#49111c' }}
                   onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#3a0d15'}
@@ -315,6 +329,18 @@ const Home = () => {
       <LoginModal
         isOpen={isLoginModalOpen}
         onClose={() => setIsLoginModalOpen(false)}
+        onSwitchToRegister={() => {
+          setIsLoginModalOpen(false);
+          setIsRegisterModalOpen(true);
+        }}
+      />
+      <RegisterModal
+        isOpen={isRegisterModalOpen}
+        onClose={() => setIsRegisterModalOpen(false)}
+        onSwitchToLogin={() => {
+          setIsRegisterModalOpen(false);
+          setIsLoginModalOpen(true);
+        }}
       />
       <Footer />
     </div>

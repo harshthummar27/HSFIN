@@ -88,13 +88,42 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const register = async (name, email, password) => {
+    try {
+      const response = await axios.post(`${API_URL}/auth/register`, { name, email, password });
+      if (response.data.success && response.data.token) {
+        // Clean and store token
+        const cleanedToken = cleanToken(response.data.token);
+        if (cleanedToken) {
+          localStorage.setItem('token', cleanedToken);
+          setUser(response.data.user);
+          return { success: true };
+        } else {
+          return {
+            success: false,
+            message: 'Invalid token received from server'
+          };
+        }
+      }
+      return {
+        success: false,
+        message: 'Registration failed - no token received'
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: error.response?.data?.message || 'Registration failed'
+      };
+    }
+  };
+
   const logout = () => {
     localStorage.removeItem('token');
     setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, loading }}>
+    <AuthContext.Provider value={{ user, login, register, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );

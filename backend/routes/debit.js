@@ -56,53 +56,5 @@ router.delete('/:id', auth, async (req, res) => {
   }
 });
 
-// Bulk create monthly debit entries
-router.post('/bulk', auth, async (req, res) => {
-  try {
-    const { month, year, amount, note } = req.body;
-    
-    if (!month || !year || !amount) {
-      return res.status(400).json({ message: 'Month, year, and amount are required' });
-    }
-
-    // Get number of days in the month
-    const daysInMonth = new Date(year, month, 0).getDate();
-    const dailyAmount = parseFloat(amount) / daysInMonth;
-
-    // Create entries for each day of the month
-    const entries = [];
-    for (let day = 1; day <= daysInMonth; day++) {
-      const date = new Date(year, month - 1, day);
-      entries.push({
-        date: date.toISOString().split('T')[0],
-        rupees: parseFloat(dailyAmount.toFixed(2)),
-        note: note || `Daily debit - ${new Date(year, month - 1, day).toLocaleDateString('en-IN', { month: 'long', day: 'numeric' })}`
-      });
-    }
-
-    // Insert all entries
-    const createdDebits = await Debit.insertMany(entries);
-    res.status(201).json({ 
-      message: `Created ${createdDebits.length} debit entries for ${new Date(year, month - 1).toLocaleDateString('en-IN', { month: 'long', year: 'numeric' })}`,
-      count: createdDebits.length
-    });
-  } catch (error) {
-    res.status(500).json({ message: 'Server error', error: error.message });
-  }
-});
-
-// Delete all debit entries
-router.delete('/all', auth, async (req, res) => {
-  try {
-    const result = await Debit.deleteMany({});
-    res.json({ 
-      message: 'All debit entries deleted successfully',
-      deletedCount: result.deletedCount
-    });
-  } catch (error) {
-    res.status(500).json({ message: 'Server error', error: error.message });
-  }
-});
-
 module.exports = router;
 
