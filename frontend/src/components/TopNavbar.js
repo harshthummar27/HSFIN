@@ -6,8 +6,16 @@ import logo from '../assets/HSFIN.png';
 const TopNavbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Get user initial (first letter of name)
+  const getUserInitial = () => {
+    if (user && user.name) {
+      return user.name.charAt(0).toUpperCase();
+    }
+    return 'U'; // Default to 'U' for User if no name
+  };
 
   const handleLogout = () => {
     logout();
@@ -86,6 +94,16 @@ const TopNavbar = () => {
             <h2 className="text-sm md:text-lg font-semibold" style={{ color: '#0A0908' }}>{getPageTitle()}</h2>
           </div>
           <div className="flex items-center space-x-2 md:space-x-4">
+            {/* User Initial Avatar */}
+            {user && (
+              <div 
+                className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-full text-white font-semibold text-sm md:text-base shadow-md"
+                style={{ backgroundColor: '#49111c' }}
+                title={user.name || user.email || 'User'}
+              >
+                {getUserInitial()}
+              </div>
+            )}
             <button
               onClick={handleLogout}
               className="text-white px-2 md:px-4 py-1 md:py-2 rounded-lg transition-all hover:scale-105 shadow-md text-xs md:text-sm font-semibold"

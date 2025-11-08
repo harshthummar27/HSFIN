@@ -41,10 +41,18 @@ api.interceptors.response.use(
   (error) => {
     // Handle 401 errors - token expired or invalid
     if (error.response?.status === 401) {
-      // Don't remove token for verify endpoint to avoid redirect loops
       const url = error.config?.url || '';
-      if (!url.includes('/auth/verify')) {
+      
+      // Don't remove token for verify endpoint to avoid redirect loops
+      // The PrivateRoute will handle verification separately
+      if (!url.includes('/auth/verify') && !url.includes('/auth/login') && !url.includes('/auth/register')) {
+        // Token is invalid - remove it and redirect to login
         localStorage.removeItem('token');
+        
+        // Only redirect if we're not already on the home page
+        if (window.location.pathname !== '/') {
+          window.location.href = '/';
+        }
       }
     }
     return Promise.reject(error);

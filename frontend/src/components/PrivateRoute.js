@@ -1,21 +1,105 @@
-import React from 'react';
-import { Navigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Sidebar from './Sidebar';
 import TopNavbar from './TopNavbar';
+import axios from 'axios';
+
+const API_URL = process.env.REACT_APP_API_URL || 'https://hsfin-3-0.onrender.com/api';
 
 const PrivateRoute = ({ children }) => {
-  const { user, loading } = useAuth();
+  const { user, loading, logout } = useAuth();
+  const location = useLocation();
+  const [isVerifying, setIsVerifying] = useState(true);
+  const [isAuthorized, setIsAuthorized] = useState(false);
 
-  if (loading) {
+  // Real-time token verification on route access
+  useEffect(() => {
+    const verifyTokenOnRoute = async () => {
+      const token = localStorage.getItem('token');
+      
+      if (!token) {
+        setIsAuthorized(false);
+        setIsVerifying(false);
+        return;
+      }
+
+      try {
+        // Clean token
+        const cleanToken = (token) => {
+          if (!token) return null;
+          return token
+            .trim()
+            .replace(/^["']|["']$/g, '')
+            .replace(/\s/g, '')
+            .replace(/[\u200B-\u200D\uFEFF]/g, '');
+        };
+
+        const cleanedToken = cleanToken(token);
+        
+        if (!cleanedToken) {
+          localStorage.removeItem('token');
+          setIsAuthorized(false);
+          setIsVerifying(false);
+          return;
+        }
+
+        // Verify token with backend
+        const response = await axios.get(`${API_URL}/auth/verify`, {
+          headers: { Authorization: `Bearer ${cleanedToken}` }
+        });
+
+        if (response.data.success && response.data.user) {
+          // Check if userId exists (required for user-scoped data)
+          if (response.data.user.userId || response.data.user.id) {
+            setIsAuthorized(true);
+          } else {
+            // Token is invalid - missing userId
+            localStorage.removeItem('token');
+            setIsAuthorized(false);
+          }
+        } else {
+          localStorage.removeItem('token');
+          setIsAuthorized(false);
+        }
+      } catch (error) {
+        // Token is invalid or expired
+        console.error('Token verification failed:', error.response?.data?.message || error.message);
+        localStorage.removeItem('token');
+        setIsAuthorized(false);
+      } finally {
+        setIsVerifying(false);
+      }
+    };
+
+    // Only verify if we have a user or token
+    if (!loading) {
+      verifyTokenOnRoute();
+    }
+  }, [location.pathname, loading]);
+
+  // Show loading state while checking authentication
+  if (loading || isVerifying) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-xl">Loading...</div>
+      <div className="flex items-center justify-center min-h-screen" style={{ backgroundColor: '#f8fafc' }}>
+        <div className="text-center">
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 mb-4" style={{ borderColor: '#49111c' }}></div>
+          <div className="text-lg font-semibold" style={{ color: '#0A0908' }}>Verifying authentication...</div>
+          <div className="text-sm text-gray-600 mt-2">Please wait</div>
+        </div>
       </div>
     );
   }
 
-  if (!user) {
+  // Redirect to home if not authorized
+  if (!user || !isAuthorized) {
+    return <Navigate to="/" replace state={{ from: location }} />;
+  }
+
+  // Ensure user has userId (required for user-scoped data access)
+  if (!user.userId && !user.id) {
+    console.error('User missing userId - logging out');
+    logout();
     return <Navigate to="/" replace />;
   }
 

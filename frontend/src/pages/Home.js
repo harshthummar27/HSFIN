@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Navigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import LoginModal from '../components/LoginModal';
 import RegisterModal from '../components/RegisterModal';
 import Footer from '../components/Footer';
 import logo from '../assets/HSFIN.png';
 
 const Home = () => {
+  const { user, loading } = useAuth();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -14,6 +17,11 @@ const Home = () => {
   useEffect(() => {
     setIsVisible(true);
   }, []);
+
+  // Redirect authenticated users to dashboard
+  if (!loading && user) {
+    return <Navigate to="/dashboard" replace />;
+  }
 
   const features = [
     {
