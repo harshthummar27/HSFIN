@@ -2,23 +2,21 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import logo from '../assets/HSFIN.png';
 
-const menuItems = [
-  { path: '/dashboard', label: 'Dashboard', icon: '📊' },
-  { path: '/daily-debit', label: 'Daily Debit', icon: '💸' },
-  { path: '/monthly-debit', label: 'Monthly Debit', icon: '📅' },
-  { path: '/monthly-income', label: 'Monthly Income', icon: '💵' },
-  { path: '/loan', label: 'Loan', icon: '🏦' },
-  { path: '/credit-card', label: 'Credit Card', icon: '💳' },
-  { path: '/credit-person', label: 'Credit Person', icon: '➕' },
-  { path: '/debit-person', label: 'Debit Person', icon: '➖' },
-  { path: '/stock-market', label: 'Stock Market', icon: '📈' },
-  { path: '/balance', label: 'Balance', icon: '💰' },
-  { path: '/other-note', label: 'Other Note', icon: '📝' },
-  { path: '/rules', label: 'Rules', icon: '📋' },
-];
-
 const Sidebar = () => {
   const location = useLocation();
+
+  const menuItems = [
+    { path: '/dashboard', label: 'Dashboard', icon: '📊' },
+    { path: '/daily-debit', label: 'Daily Debit', icon: '💸' },
+    { path: '/loan', label: 'Loan', icon: '🏦' },
+    { path: '/credit-card', label: 'Credit Card', icon: '💳' },
+    { path: '/credit-person', label: 'Credit Person', icon: '➕' },
+    { path: '/debit-person', label: 'Debit Person', icon: '➖' },
+    { path: '/stock-market', label: 'Stock Market', icon: '📈' },
+    { path: '/balance', label: 'Balance', icon: '💰' },
+    { path: '/other-note', label: 'Other Note', icon: '📝' },
+    { path: '/rules', label: 'Rules', icon: '📋' },
+  ];
 
   return (
     <>

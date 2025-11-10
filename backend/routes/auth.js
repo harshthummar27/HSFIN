@@ -1,42 +1,31 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 const User = require('../models/User');
-const { handleError } = require('../utils/errorHandler');
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your_super_secret_jwt_key';
 
-const generateToken = (user) => {
-  return jwt.sign(
-    { userId: user._id, email: user.email },
-    JWT_SECRET,
-    { expiresIn: '7d' }
-  );
-};
-
-const formatUser = (user) => ({
-  id: user._id,
-  name: user.name,
-  email: user.email
-});
-
+// Register endpoint
 router.post('/register', async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
+    // Validation
     if (!name || !email || !password) {
       return res.status(400).json({ message: 'Name, email, and password are required' });
     }
 
     if (password.length < 6) {
-      return res.status(400).json({ message: 'Password must be at least 6 characters' });
+      return res.status(400).json({ message: 'Password must be at least 6 characters long' });
     }
 
+    // Check if user already exists
     const existingUser = await User.findOne({ email: email.toLowerCase() });
     if (existingUser) {
-      return res.status(400).json({ message: 'User already exists' });
+      return res.status(400).json({ message: 'User with this email already exists' });
     }
 
+    // Create new user
     const user = new User({
       name: name.trim(),
       email: email.toLowerCase().trim(),
@@ -45,19 +34,32 @@ router.post('/register', async (req, res) => {
 
     await user.save();
 
+    // Generate JWT token
+    const JWT_SECRET = process.env.JWT_SECRET || 'your_super_secret_jwt_key';
+    const token = jwt.sign(
+      { userId: user._id, email: user.email },
+      JWT_SECRET,
+      { expiresIn: '7d' }
+    );
+
     res.status(201).json({
       success: true,
-      token: generateToken(user),
-      user: formatUser(user)
+      token,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email
+      }
     });
   } catch (error) {
     if (error.code === 11000) {
-      return res.status(400).json({ message: 'User already exists' });
+      return res.status(400).json({ message: 'User with this email already exists' });
     }
-    handleError(res, error);
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 });
 
+// Login endpoint
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -66,26 +68,42 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ message: 'Email and password are required' });
     }
 
+    // First, try to find user in database
     const user = await User.findOne({ email: email.toLowerCase() });
-    if (!user) {
-      return res.status(401).json({ message: 'Invalid credentials' });
+    
+    if (user) {
+      // Database user - check password
+      const isMatch = await user.comparePassword(password);
+      if (!isMatch) {
+        return res.status(401).json({ message: 'Invalid credentials' });
+      }
+
+      // Generate JWT token
+      const JWT_SECRET = process.env.JWT_SECRET || 'your_super_secret_jwt_key';
+      const token = jwt.sign(
+        { userId: user._id, email: user.email },
+        JWT_SECRET,
+        { expiresIn: '7d' }
+      );
+
+      return res.json({
+        success: true,
+        token,
+        user: {
+          id: user._id,
+          name: user.name,
+          email: user.email
+        }
+      });
     }
 
-    const isMatch = await user.comparePassword(password);
-    if (!isMatch) {
-      return res.status(401).json({ message: 'Invalid credentials' });
-    }
-
-    res.json({
-      success: true,
-      token: generateToken(user),
-      user: formatUser(user)
-    });
+    return res.status(401).json({ message: 'Invalid credentials' });
   } catch (error) {
-    handleError(res, error);
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 });
 
+// Verify token endpoint
 router.get('/verify', require('../middleware/auth'), (req, res) => {
   res.json({ success: true, user: req.user });
 });

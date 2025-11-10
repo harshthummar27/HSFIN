@@ -3,21 +3,6 @@ import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import logo from '../assets/HSFIN.png';
 
-const menuItems = [
-  { path: '/dashboard', label: 'Dashboard', icon: '📊' },
-  { path: '/daily-debit', label: 'Daily Debit', icon: '💸' },
-  { path: '/monthly-debit', label: 'Monthly Debit', icon: '📅' },
-  { path: '/monthly-income', label: 'Monthly Income', icon: '💵' },
-  { path: '/loan', label: 'Loan', icon: '🏦' },
-  { path: '/credit-card', label: 'Credit Card', icon: '💳' },
-  { path: '/credit-person', label: 'Credit Person', icon: '➕' },
-  { path: '/debit-person', label: 'Debit Person', icon: '➖' },
-  { path: '/stock-market', label: 'Stock Market', icon: '📈' },
-  { path: '/balance', label: 'Balance', icon: '💰' },
-  { path: '/other-note', label: 'Other Note', icon: '📝' },
-  { path: '/rules', label: 'Rules', icon: '📋' },
-];
-
 const TopNavbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -29,7 +14,7 @@ const TopNavbar = () => {
     if (user && user.name) {
       return user.name.charAt(0).toUpperCase();
     }
-    return 'Me'; // Default to 'U' for User if no name
+    return 'U'; // Default to 'U' for User if no name
   };
 
   const handleLogout = () => {
@@ -42,8 +27,6 @@ const TopNavbar = () => {
     const titles = {
       '/dashboard': 'Dashboard',
       '/daily-debit': 'Daily Debit',
-      '/monthly-debit': 'Monthly Debit',
-      '/monthly-income': 'Monthly Income',
       '/loan': 'Loan Management',
       '/credit-card': 'Credit Card Management',
       '/credit-person': 'Credit Person',
@@ -175,7 +158,18 @@ const TopNavbar = () => {
               </div>
             </div>
             <nav className="mt-1 md:mt-2">
-              {menuItems.map((item) => (
+              {[
+                { path: '/dashboard', label: 'Dashboard', icon: '📊' },
+                { path: '/daily-debit', label: 'Daily Debit', icon: '💸' },
+                { path: '/loan', label: 'Loan', icon: '🏦' },
+                { path: '/credit-card', label: 'Credit Card', icon: '💳' },
+                { path: '/credit-person', label: 'Credit Person', icon: '➕' },
+                { path: '/debit-person', label: 'Debit Person', icon: '➖' },
+                { path: '/stock-market', label: 'Stock Market', icon: '📈' },
+                { path: '/balance', label: 'Balance', icon: '💰' },
+                { path: '/other-note', label: 'Other Note', icon: '📝' },
+                { path: '/rules', label: 'Rules', icon: '📋' },
+              ].map((item) => (
                 <Link
                   key={item.path}
                   to={item.path}
