@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -7,6 +7,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import DailyDebit from './pages/DailyDebit';
+import MonthlyDebit from './pages/MonthlyDebit';
+import MonthlyIncome from './pages/MonthlyIncome';
 import Loan from './pages/Loan';
 import CreditCard from './pages/CreditCard';
 import CreditPerson from './pages/CreditPerson';
@@ -17,14 +19,16 @@ import StockMarket from './pages/StockMarket';
 import Balance from './pages/Balance';
 import PrivateRoute from './components/PrivateRoute';
 
-// Component to handle scroll restoration
 function ScrollToTop() {
+  const { pathname } = useLocation();
+
   useEffect(() => {
-    // Prevent automatic scroll restoration on page refresh
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual';
     }
-  }, []);
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   return null;
 }
 
@@ -40,8 +44,7 @@ function App() {
               path="/dashboard"
               element={
                 <PrivateRoute>
-                    <Dashboard />
-                  
+                  <Dashboard />
                 </PrivateRoute>
               }
             />
@@ -49,9 +52,23 @@ function App() {
               path="/daily-debit"
               element={
                 <PrivateRoute>
-                  
-                    <DailyDebit />
-                 
+                  <DailyDebit />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/monthly-debit"
+              element={
+                <PrivateRoute>
+                  <MonthlyDebit />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/monthly-income"
+              element={
+                <PrivateRoute>
+                  <MonthlyIncome />
                 </PrivateRoute>
               }
             />
@@ -59,9 +76,7 @@ function App() {
               path="/loan"
               element={
                 <PrivateRoute>
-                
-                    <Loan />
-              
+                  <Loan />
                 </PrivateRoute>
               }
             />
@@ -69,9 +84,7 @@ function App() {
               path="/credit-card"
               element={
                 <PrivateRoute>
-                 
-                    <CreditCard />
-                 
+                  <CreditCard />
                 </PrivateRoute>
               }
             />
@@ -79,9 +92,7 @@ function App() {
               path="/credit-person"
               element={
                 <PrivateRoute>
-                  
-                    <CreditPerson />
-               
+                  <CreditPerson />
                 </PrivateRoute>
               }
             />
@@ -89,9 +100,7 @@ function App() {
               path="/debit-person"
               element={
                 <PrivateRoute>
-                
-                    <DebitPerson />
-                 
+                  <DebitPerson />
                 </PrivateRoute>
               }
             />
@@ -99,9 +108,7 @@ function App() {
               path="/other-note"
               element={
                 <PrivateRoute>
-                 
-                    <OtherNote />
-                  
+                  <OtherNote />
                 </PrivateRoute>
               }
             />
@@ -109,9 +116,7 @@ function App() {
               path="/rules"
               element={
                 <PrivateRoute>
-                 
-                    <Rules />
-                  
+                  <Rules />
                 </PrivateRoute>
               }
             />
@@ -119,9 +124,7 @@ function App() {
               path="/stock-market"
               element={
                 <PrivateRoute>
-                 
-                    <StockMarket />
-             
+                  <StockMarket />
                 </PrivateRoute>
               }
             />
@@ -129,9 +132,7 @@ function App() {
               path="/balance"
               element={
                 <PrivateRoute>
-                  
-                    <Balance />
-                 
+                  <Balance />
                 </PrivateRoute>
               }
             />
@@ -139,12 +140,7 @@ function App() {
           <ToastContainer 
             position="top-right" 
             autoClose={500}
-            hideProgressBar={false}
-            newestOnTop={false}
             closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
             pauseOnHover
             theme="light"
           />

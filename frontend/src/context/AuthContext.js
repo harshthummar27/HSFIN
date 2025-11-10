@@ -1,52 +1,30 @@
 import React, { createContext, useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../utils/api';
 
 const AuthContext = createContext();
 
-// Use localhost for development, production URL for production
-const API_URL = process.env.REACT_APP_API_URL || 'https://hsfin-3-0.onrender.com/api';
+// Helper function to clean token
+const cleanToken = (token) => {
+  if (!token) return null;
+  return token.trim().replace(/^["']|["']$/g, '').replace(/\s/g, '');
+};
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Helper function to clean token
-  const cleanToken = (token) => {
-    if (!token) return null;
-    // Remove all whitespace, quotes, and any invisible characters
-    return token
-      .trim()
-      .replace(/^["']|["']$/g, '') // Remove quotes
-      .replace(/\s/g, '') // Remove all whitespace
-      .replace(/[\u200B-\u200D\uFEFF]/g, ''); // Remove zero-width spaces
-  };
-
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      const cleanedToken = cleanToken(token);
-      if (cleanedToken) {
-        verifyToken(cleanedToken);
-      } else {
-        localStorage.removeItem('token');
-        setLoading(false);
-      }
+      verifyToken();
     } else {
       setLoading(false);
     }
   }, []);
 
-  const verifyToken = async (token) => {
+  const verifyToken = async () => {
     try {
-      // Token is already cleaned before calling this function
-      if (!token) {
-        localStorage.removeItem('token');
-        setLoading(false);
-        return;
-      }
-      const response = await axios.get(`${API_URL}/auth/verify`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      const response = await api.get('/auth/verify');
       if (response.data.success) {
         setUser(response.data.user);
       } else {
@@ -61,25 +39,18 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post(`${API_URL}/auth/login`, { email, password });
+      const response = await api.post('/auth/login', { email, password });
       if (response.data.success && response.data.token) {
-        // Clean and store token
         const cleanedToken = cleanToken(response.data.token);
         if (cleanedToken) {
           localStorage.setItem('token', cleanedToken);
           setUser(response.data.user);
+          setLoading(false);
           return { success: true };
-        } else {
-          return {
-            success: false,
-            message: 'Invalid token received from server'
-          };
         }
+        return { success: false, message: 'Invalid token received' };
       }
-      return {
-        success: false,
-        message: 'Login failed - no token received'
-      };
+      return { success: false, message: 'Login failed - no token received' };
     } catch (error) {
       return {
         success: false,
@@ -90,25 +61,18 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (name, email, password) => {
     try {
-      const response = await axios.post(`${API_URL}/auth/register`, { name, email, password });
+      const response = await api.post('/auth/register', { name, email, password });
       if (response.data.success && response.data.token) {
-        // Clean and store token
         const cleanedToken = cleanToken(response.data.token);
         if (cleanedToken) {
           localStorage.setItem('token', cleanedToken);
           setUser(response.data.user);
+          setLoading(false);
           return { success: true };
-        } else {
-          return {
-            success: false,
-            message: 'Invalid token received from server'
-          };
         }
+        return { success: false, message: 'Invalid token received' };
       }
-      return {
-        success: false,
-        message: 'Registration failed - no token received'
-      };
+      return { success: false, message: 'Registration failed - no token received' };
     } catch (error) {
       return {
         success: false,

@@ -10,115 +10,107 @@ const CreditCard = require('../models/CreditCard');
 const StockMarket = require('../models/StockMarket');
 const Balance = require('../models/Balance');
 
-// Test route to verify dashboard router is working
-router.get('/test', (req, res) => {
-  res.json({ message: 'Dashboard router is working', timestamp: new Date().toISOString() });
-});
-
 // Get dashboard summary
 router.get('/summary', auth, async (req, res) => {
-  console.log('Dashboard summary route hit');
-  const userId = req.user.userId;
+  const userId = new mongoose.Types.ObjectId(req.user.userId);
   
   try {
-    // Calculate total debit (Daily Debit)
-    const totalDebit = await Debit.aggregate([
-      { $match: { userId: new mongoose.Types.ObjectId(userId) } },
-      { $group: { _id: null, total: { $sum: '$rupees' } } }
-    ]);
-    
-    // Calculate total credit (Credit Person)
-    const totalCredit = await CreditPerson.aggregate([
-      { $match: { userId: new mongoose.Types.ObjectId(userId) } },
-      { $group: { _id: null, total: { $sum: '$rupees' } } }
-    ]);
-
-    // Calculate total debit person
-    const totalDebitPerson = await DebitPerson.aggregate([
-      { $match: { userId: new mongoose.Types.ObjectId(userId) } },
-      { $group: { _id: null, total: { $sum: '$rupees' } } }
-    ]);
-
-    // Calculate total credit person
-    const totalCreditPerson = await CreditPerson.aggregate([
-      { $match: { userId: new mongoose.Types.ObjectId(userId) } },
-      { $group: { _id: null, total: { $sum: '$rupees' } } }
-    ]);
-
-    // Calculate loan outstanding
-    const loanSummary = await Loan.aggregate([
-      { $match: { userId: new mongoose.Types.ObjectId(userId) } },
-      { $group: { _id: '$bank', totalOutstanding: { $sum: '$amount' } } }
-    ]);
-
-    // Calculate credit card summary
-    const creditCardSummary = await CreditCard.aggregate([
-      {
-        $match: {
-          userId: new mongoose.Types.ObjectId(userId),
-          amount: { $exists: true, $ne: null, $ne: undefined }
-        }
-      },
-      {
-        $group: {
-          _id: '$cardName',
-          totalSpent: {
-            $sum: {
-              $cond: [{ $lt: ['$amount', 0] }, { $abs: '$amount' }, 0]
-            }
-          },
-          totalPaid: {
-            $sum: {
-              $cond: [{ $gt: ['$amount', 0] }, '$amount', 0]
+    // Execute all queries in parallel for better performance
+    const [
+      totalDebit,
+      totalCredit,
+      totalDebitPerson,
+      totalCreditPerson,
+      loanSummary,
+      creditCardSummary,
+      stockMarketInitial,
+      stockMarketTransactions,
+      balanceInitial,
+      balanceTransactions
+    ] = await Promise.all([
+      Debit.aggregate([
+        { $match: { userId } },
+        { $group: { _id: null, total: { $sum: '$rupees' } } }
+      ]),
+      CreditPerson.aggregate([
+        { $match: { userId } },
+        { $group: { _id: null, total: { $sum: '$rupees' } } }
+      ]),
+      DebitPerson.aggregate([
+        { $match: { userId } },
+        { $group: { _id: null, total: { $sum: '$rupees' } } }
+      ]),
+      CreditPerson.aggregate([
+        { $match: { userId } },
+        { $group: { _id: null, total: { $sum: '$rupees' } } }
+      ]),
+      Loan.aggregate([
+        { $match: { userId } },
+        { $group: { _id: '$bank', totalOutstanding: { $sum: '$amount' } } }
+      ]),
+      CreditCard.aggregate([
+        {
+          $match: {
+            userId,
+            amount: { $exists: true, $ne: null }
+          }
+        },
+        {
+          $group: {
+            _id: '$cardName',
+            totalSpent: {
+              $sum: { $cond: [{ $lt: ['$amount', 0] }, { $abs: '$amount' }, 0] }
+            },
+            totalPaid: {
+              $sum: { $cond: [{ $gt: ['$amount', 0] }, '$amount', 0] }
             }
           }
         }
-      }
+      ]),
+      StockMarket.findOne({
+        userId: req.user.userId,
+        initialBalance: { $exists: true, $ne: null }
+      }).sort({ createdAt: -1 }),
+      StockMarket.find({
+        userId: req.user.userId,
+        profitLoss: { $exists: true, $ne: null }
+      }),
+      Balance.findOne({
+        userId: req.user.userId,
+        $or: [
+          { initialCashBalance: { $exists: true, $ne: null } },
+          { initialAccountBalance: { $exists: true, $ne: null } }
+        ]
+      }).sort({ createdAt: -1 }),
+      Balance.find({
+        userId: req.user.userId,
+        $or: [
+          { cashAmount: { $exists: true, $ne: null } },
+          { accountAmount: { $exists: true, $ne: null } }
+        ]
+      })
     ]);
-    
-    // Add limit and available credit for each card
-    for (let card of creditCardSummary) {
-      const limitEntry = await CreditCard.findOne({
-        userId: userId,
-        cardName: card._id,
-        limit: { $exists: true, $ne: null, $ne: undefined }
-      }).sort({ createdAt: -1 });
-      
-      card.limit = limitEntry?.limit || 0;
+
+    // Process credit card limits
+    const cardNames = creditCardSummary.map(c => c._id);
+    const cardLimits = await Promise.all(
+      cardNames.map(cardName =>
+        CreditCard.findOne({
+          userId: req.user.userId,
+          cardName,
+          limit: { $exists: true, $ne: null }
+        }).sort({ createdAt: -1 }).select('limit')
+      )
+    );
+
+    creditCardSummary.forEach((card, index) => {
+      card.limit = cardLimits[index]?.limit || 0;
       card.currentBalance = card.totalSpent - card.totalPaid;
       card.availableCredit = card.limit - card.currentBalance;
-    }
-
-    // Calculate Stock Market summary
-    const stockMarketInitial = await StockMarket.findOne({
-      userId: userId,
-      initialBalance: { $exists: true, $ne: null, $ne: undefined }
-    }).sort({ createdAt: -1 });
-
-    const stockMarketTransactions = await StockMarket.find({
-      userId: userId,
-      profitLoss: { $exists: true, $ne: null, $ne: undefined }
     });
 
     const stockMarketTotal = (stockMarketInitial?.initialBalance || 0) + 
       stockMarketTransactions.reduce((sum, t) => sum + (t.profitLoss || 0), 0);
-
-    // Calculate Balance summary
-    const balanceInitial = await Balance.findOne({
-      userId: userId,
-      $or: [
-        { initialCashBalance: { $exists: true, $ne: null } },
-        { initialAccountBalance: { $exists: true, $ne: null } }
-      ]
-    }).sort({ createdAt: -1 });
-
-    const balanceTransactions = await Balance.find({
-      userId: userId,
-      $or: [
-        { cashAmount: { $exists: true, $ne: null } },
-        { accountAmount: { $exists: true, $ne: null } }
-      ]
-    });
 
     const totalCashTransactions = balanceTransactions.reduce((sum, t) => sum + (t.cashAmount || 0), 0);
     const totalAccountTransactions = balanceTransactions.reduce((sum, t) => sum + (t.accountAmount || 0), 0);
@@ -136,12 +128,6 @@ router.get('/summary', auth, async (req, res) => {
       balanceTotal: balanceTotal || 0
     });
   } catch (error) {
-    console.error('Dashboard summary error:', error);
-    console.error('Error details:', {
-      message: error.message,
-      stack: error.stack,
-      name: error.name
-    });
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 });

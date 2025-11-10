@@ -3,9 +3,7 @@ import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Sidebar from './Sidebar';
 import TopNavbar from './TopNavbar';
-import axios from 'axios';
-
-const API_URL = process.env.REACT_APP_API_URL || 'https://hsfin-3-0.onrender.com/api';
+import api from '../utils/api';
 
 const PrivateRoute = ({ children }) => {
   const { user, loading, logout } = useAuth();
@@ -13,8 +11,20 @@ const PrivateRoute = ({ children }) => {
   const [isVerifying, setIsVerifying] = useState(true);
   const [isAuthorized, setIsAuthorized] = useState(false);
 
-  // Real-time token verification on route access
+  // Optimized token verification - skip if user already authenticated
   useEffect(() => {
+    // If user is already set, skip verification
+    if (user && (user.userId || user.id)) {
+      setIsAuthorized(true);
+      setIsVerifying(false);
+      return;
+    }
+
+    // Wait for auth context to finish loading
+    if (loading) {
+      return;
+    }
+
     const verifyTokenOnRoute = async () => {
       const token = localStorage.getItem('token');
       
@@ -25,36 +35,11 @@ const PrivateRoute = ({ children }) => {
       }
 
       try {
-        // Clean token
-        const cleanToken = (token) => {
-          if (!token) return null;
-          return token
-            .trim()
-            .replace(/^["']|["']$/g, '')
-            .replace(/\s/g, '')
-            .replace(/[\u200B-\u200D\uFEFF]/g, '');
-        };
-
-        const cleanedToken = cleanToken(token);
-        
-        if (!cleanedToken) {
-          localStorage.removeItem('token');
-          setIsAuthorized(false);
-          setIsVerifying(false);
-          return;
-        }
-
-        // Verify token with backend
-        const response = await axios.get(`${API_URL}/auth/verify`, {
-          headers: { Authorization: `Bearer ${cleanedToken}` }
-        });
-
+        const response = await api.get('/auth/verify');
         if (response.data.success && response.data.user) {
-          // Check if userId exists (required for user-scoped data)
           if (response.data.user.userId || response.data.user.id) {
             setIsAuthorized(true);
           } else {
-            // Token is invalid - missing userId
             localStorage.removeItem('token');
             setIsAuthorized(false);
           }
@@ -63,8 +48,6 @@ const PrivateRoute = ({ children }) => {
           setIsAuthorized(false);
         }
       } catch (error) {
-        // Token is invalid or expired
-        console.error('Token verification failed:', error.response?.data?.message || error.message);
         localStorage.removeItem('token');
         setIsAuthorized(false);
       } finally {
@@ -72,11 +55,8 @@ const PrivateRoute = ({ children }) => {
       }
     };
 
-    // Only verify if we have a user or token
-    if (!loading) {
-      verifyTokenOnRoute();
-    }
-  }, [location.pathname, loading]);
+    verifyTokenOnRoute();
+  }, [location.pathname, loading, user]);
 
   // Show loading state while checking authentication
   if (loading || isVerifying) {
@@ -98,7 +78,6 @@ const PrivateRoute = ({ children }) => {
 
   // Ensure user has userId (required for user-scoped data access)
   if (!user.userId && !user.id) {
-    console.error('User missing userId - logging out');
     logout();
     return <Navigate to="/" replace />;
   }
