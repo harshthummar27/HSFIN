@@ -7,6 +7,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import DailyDebit from './pages/DailyDebit';
+import MonthlyDebit from './pages/MonthlyDebit';
+import MonthlyIncome from './pages/MonthlyIncome';
 import Loan from './pages/Loan';
 import CreditCard from './pages/CreditCard';
 import CreditPerson from './pages/CreditPerson';
@@ -51,6 +53,26 @@ function App() {
                 <PrivateRoute>
                   
                     <DailyDebit />
+                 
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/monthly-debit"
+              element={
+                <PrivateRoute>
+                  
+                    <MonthlyDebit />
+                 
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/monthly-income"
+              element={
+                <PrivateRoute>
+                  
+                    <MonthlyIncome />
                  
                 </PrivateRoute>
               }

@@ -8,6 +8,8 @@ const Sidebar = () => {
   const menuItems = [
     { path: '/dashboard', label: 'Dashboard', icon: '📊' },
     { path: '/daily-debit', label: 'Daily Debit', icon: '💸' },
+    { path: '/monthly-debit', label: 'Monthly Debit', icon: '📅' },
+    { path: '/monthly-income', label: 'Monthly Income', icon: '💵' },
     { path: '/loan', label: 'Loan', icon: '🏦' },
     { path: '/credit-card', label: 'Credit Card', icon: '💳' },
     { path: '/credit-person', label: 'Credit Person', icon: '➕' },

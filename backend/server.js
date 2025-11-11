@@ -61,6 +61,8 @@ app.get('/', (req, res) => {
       auth: '/api/auth',
       dashboard: '/api/dashboard',
       debit: '/api/debit',
+      monthlyDebit: '/api/monthly-debit',
+      monthlyIncome: '/api/monthly-income',
       loan: '/api/loan',
       creditcard: '/api/creditcard',
       creditPerson: '/api/credit-person',
@@ -78,6 +80,8 @@ app.get('/', (req, res) => {
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/dashboard', require('./routes/dashboard'));
 app.use('/api/debit', require('./routes/debit'));
+app.use('/api/monthly-debit', require('./routes/monthlyDebit'));
+app.use('/api/monthly-income', require('./routes/monthlyIncome'));
 app.use('/api/loan', require('./routes/loan'));
 app.use('/api/creditcard', require('./routes/creditcard'));
 app.use('/api/credit-person', require('./routes/creditPerson'));
